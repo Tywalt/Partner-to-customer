@@ -594,6 +594,10 @@
                 </a>
                 <p>&copy; 2024 Neloxis. All rights reserved.</p>
                 <!-- Update year and company name accordingly -->
+
+                if (window.location.pathname.endsWith('index.html')) {
+  window.location.replace(window.location.href.replace('index.html', ''));
+}
               </div>
             </div>
           </footer>
