@@ -49,7 +49,7 @@ sup {
   background-image: -webkit-linear-gradient(270deg, #5055fa 40%, #a903c9 100%);
   background-clip: text;
   -webkit-background-clip: text;
-  text-fill-color: transparent;
+  text-emphasis-color: transparent;
   -webkit-text-fill-color: transparent;
   font-weight: 800;
 }
