@@ -49,11 +49,7 @@ sup {
   background-image: -webkit-linear-gradient(270deg, #5055fa 40%, #a903c9 100%);
   background-clip: text;
   -webkit-background-clip: text;
-<<<<<<< HEAD
-  text-emphasis-color: transparent;
-=======
   text-fill-color: transparent;
->>>>>>> fa6393c9c3eab14d80d537c1baac711f2999c941
   -webkit-text-fill-color: transparent;
   font-weight: 800;
 }
