@@ -575,32 +575,22 @@
               margin-top: 15px;
             }
           </style>
-        </head>
-        <body>
-          <!-- Your content goes here -->
-
-          <footer id="footer">
-            <div class="content-width mobile-x-space">
-              <div class="footer-text">
+</head>
+<body>
+    <footer id="footer">
+        <div class="content-width mobile-x-space">
+            <div class="footer-text">
                 <a href="#">
-                  <img
-                    class="site-nav-logo neloxis-logo-header"
-                    src="img/logo.png"
-                    alt="Neloxis Logo"
-                    width="50"
-                  />
+                    <img class="site-nav-logo neloxis-logo-header" src="img/logo.png" alt="Neloxis Logo" width="50"/>
                 </a>
                 <p>&copy; 2024 Neloxis. All rights reserved.</p>
-                <!-- Update year and company name accordingly -->
-
-                if (window.location.pathname.endsWith('index.html')) {
-  window.location.replace(window.location.href.replace('index.html', ''));
-}
-              </div>
             </div>
-          </footer>
-        </body>
-      </html>
-    </section>
-  </head>
+        </div>
+    </footer>
+    <script>
+        if (window.location.pathname.endsWith('index.html')) {
+            window.location.replace(window.location.href.replace('index.html', ''));
+        }
+    </script>
+</body>
 </html>
