@@ -2,11 +2,12 @@ body {
     font-family: 'Noto Sans', sans-serif;
     background: #fff;
     margin: 0;
-    padding: 0%;
+    padding: 0;
     line-height: 1.6;
     color: #333;
 }
 
+/* Styles for the navigation */
 /* Styles for the navigation */
 .navbar {
     display: flex;
@@ -14,7 +15,8 @@ body {
     background-color: #fff;
     padding: 10px;
     list-style: none;
-    margin-left: 150px; /* Adjust this value as needed */
+    margin-left: 0; /* Adjusted margin to ensure shadow is not cut off */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow effect */
 }
 
 .nav-item {
@@ -30,13 +32,13 @@ body {
 }
 
 .nav-link:hover {
-    text-decoration: underline;  /* Adds underline on hover */
+    text-decoration: underline; /* Adds underline on hover */
 }
 
 /* Specific styles for the logo and divider */
 .navbar img {
     height: 50px;
-    border-right: 20px solid #333; /* This adds the vertical line to the right of the logo */
+    border-right: .5px solid #333; /* This adds the vertical line to the right of the logo */
     padding-right: 20px; /* This adds some space between the line and the text */
 }
 
@@ -70,11 +72,5 @@ body {
 }
 
 .column a:hover {
-    text-decoration: underline;  /* Adds underline on hover */
-}
-
-.header h1 {
-    color: #444;
-    font-size: 2.5em;
-    margin-top: 150; /* Add more space above the heading */
+    text-decoration: underline; /* Adds underline on hover */
 }
