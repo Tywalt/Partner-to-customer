@@ -72,3 +72,9 @@ body {
 .column a:hover {
     text-decoration: underline;  /* Adds underline on hover */
 }
+
+.header h1 {
+    color: #444;
+    font-size: 2.5em;
+    margin-top: 150; /* Add more space above the heading */
+}
