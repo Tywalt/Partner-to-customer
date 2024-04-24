@@ -2,7 +2,7 @@ body {
     font-family: 'Noto Sans', sans-serif;
     background: #fff;
     margin: 0;
-    padding: 2%;
+    padding: 0%;
     line-height: 1.6;
     color: #333;
 }
@@ -29,20 +29,19 @@ body {
     display: block;
 }
 
+.nav-link:hover {
+    text-decoration: underline;  /* Adds underline on hover */
+}
+
 /* Specific styles for the logo and divider */
 .navbar img {
     height: 50px;
-    border-right: 2px solid #333; /* This adds the vertical line to the right of the logo */
+    border-right: 20px solid #333; /* This adds the vertical line to the right of the logo */
     padding-right: 20px; /* This adds some space between the line and the text */
 }
 
-/* Style for the first nav-item, adjusting margin to accommodate the divider */
 .navbar .nav-item:first-child {
     margin-right: 40px; /* Adjust as needed to give space after the divider */
-}
-
-.nav-item:hover .dropdown-content {
-    display: flex;
 }
 
 .dropdown-content {
@@ -71,5 +70,11 @@ body {
 }
 
 .column a:hover {
-    background-color: #ddd;
+    text-decoration: underline;  /* Adds underline on hover */
+}
+
+.header h1 {
+    color: #444;
+    font-size: 2.5em;
+    margin-top: 150; /* Add more space above the heading */
 }
