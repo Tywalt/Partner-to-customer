@@ -22,6 +22,7 @@ body {
 .nav-item {
     margin: 0 5px;
     position: relative;
+    display: flex; /* Display dropdown items horizontally */
 }
 
 .nav-link {
