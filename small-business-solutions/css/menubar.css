@@ -1,0 +1,18 @@
+.menu-bar {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.menu-link {
+    padding: 10px 20px;
+    background: #e1e1e1; /* Light gray background for visibility */
+    border-radius: 5px; /* Rounded corners for a softer look */
+    text-transform: uppercase; /* Uppercase text for a consistent, formal appearance */
+    font-size: 0.9em; /* Slightly smaller font size for neatness */
+    font-weight: bold; /* Bold text to make the links stand out */
+    color: #333; /* Dark gray text for readability */
+    text-decoration: none; /* No underlines to keep the appearance clean */
+}

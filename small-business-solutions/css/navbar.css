@@ -29,6 +29,10 @@ body {
     display: block;
 }
 
+.nav-link:hover {
+    text-decoration: underline;  /* Adds underline on hover */
+}
+
 /* Specific styles for the logo and divider */
 .navbar img {
     height: 50px;
@@ -36,13 +40,8 @@ body {
     padding-right: 20px; /* This adds some space between the line and the text */
 }
 
-/* Style for the first nav-item, adjusting margin to accommodate the divider */
 .navbar .nav-item:first-child {
     margin-right: 40px; /* Adjust as needed to give space after the divider */
-}
-
-.nav-item:hover .dropdown-content {
-    display: flex;
 }
 
 .dropdown-content {
@@ -71,5 +70,5 @@ body {
 }
 
 .column a:hover {
-    background-color: #ddd;
+    text-decoration: underline;  /* Adds underline on hover */
 }
