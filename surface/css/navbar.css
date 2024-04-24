@@ -8,7 +8,6 @@ body {
 }
 
 /* Styles for the navigation */
-/* Styles for the navigation */
 .navbar {
     display: flex;
     justify-content: flex-start; /* Align items to the left */
@@ -17,6 +16,7 @@ body {
     list-style: none;
     margin-left: 0; /* Adjusted margin to ensure shadow is not cut off */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow effect */
+    flex-direction: row; /* Set the flex direction to row */
 }
 
 .nav-item {
