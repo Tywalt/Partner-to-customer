@@ -8,11 +8,17 @@
 
 .menu-link {
     padding: 10px 20px;
-    background: #e1e1e1; /* Light gray background for visibility */
-    border-radius: 5px; /* Rounded corners for a softer look */
-    text-transform: uppercase; /* Uppercase text for a consistent, formal appearance */
-    font-size: 0.9em; /* Slightly smaller font size for neatness */
-    font-weight: bold; /* Bold text to make the links stand out */
-    color: #333; /* Dark gray text for readability */
-    text-decoration: none; /* No underlines to keep the appearance clean */
+    background: #e1e1e1;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-size: 0.9em;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+    transition: box-shadow 0.3s ease-in-out, transform 0.2s; /* Smooth transition for shadow and transform */
+}
+
+.menu-link:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect for depth */
+    transform: translateY(-2px); /* Slight raise effect */
 }
