@@ -1,0 +1,76 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #fff;
+    margin: 0;
+    padding: 0%;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* Styles for the navigation */
+.nav-link {
+    text-decoration: none;
+    color: #000; /* Ensures the text color is black */
+    padding: 10px;
+    display: block;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Updated font-family */
+    font-size: 16px; /* Sets the font size to 16px */
+}
+
+/* You can also apply the font-family to .nav-item if you want it to be inherited by all child elements. */
+.nav-item {
+    margin: 0; /* Removed the space between 0 and px to correct the syntax error */
+    position: relative;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Apply the font here */
+}
+
+.nav-link {
+    text-decoration: none;
+    color: black;
+    padding: 10px;
+    display: block;
+}
+
+.nav-link:hover {
+    text-decoration: underline;  /* Adds underline on hover */
+}
+
+/* Specific styles for the logo and divider */
+.navbar img {
+    height: 50px;
+    border-right: 20px solid #333; /* This adds the vertical line to the right of the logo */
+    padding-right: 20px; /* This adds some space between the line and the text */
+}
+
+.navbar .nav-item:first-child {
+    margin-right: 40px; /* Adjust as needed to give space after the divider */
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    left: 0;
+    top: 100%;
+    margin-top: 10px;
+    width: auto;
+    white-space: nowrap;
+}
+
+.column {
+    padding: 15px;
+    min-width: 120px;
+}
+
+.column a {
+    text-decoration: none;
+    color: black;
+    padding: 2px 0;
+    display: block;
+}
+
+.column a:hover {
+    text-decoration: underline;  /* Adds underline on hover */
+}

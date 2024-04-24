@@ -1,5 +1,5 @@
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Noto Sans', sans-serif;
     background: #fff;
     margin: 0;
     padding: 0%;
@@ -15,11 +15,10 @@ body {
     padding: 10px;
     list-style: none;
     margin-left: 150px; /* Adjust this value as needed */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Apply the font here */
 }
 
 .nav-item {
-    margin: 0 px;
+    margin: 0 5px;
     position: relative;
 }
 
@@ -72,4 +71,10 @@ body {
 
 .column a:hover {
     text-decoration: underline;  /* Adds underline on hover */
+}
+
+.header h1 {
+    color: #444;
+    font-size: 2.5em;
+    margin-top: 150; /* Add more space above the heading */
 }

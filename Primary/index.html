@@ -1,608 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Neloxis | Advancing Business Capabilities</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Google font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
-      rel="stylesheet"
-    />
-    <!-- General styles: Global -->
-    <link rel="stylesheet" href="css/global-base.css" />
-    <link rel="stylesheet" href="css/global-site-header.css" />
-    <!-- General styles: Landing -->
-    <link rel="stylesheet" href="css/landing/base.css" />
-    <link rel="stylesheet" href="css/landing/site-header.css" />
-    <link rel="shortcut icon" href="favicon-32x32.png" />
-    <head> </head>
-    <body>
-      <header
-      id="site-header"
-      style="
-        background-color: #fff;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        position: fixed;
-        width: 100%;
-        z-index: 1030;
-        top: 0;
-      "
-    >
-      <nav
-        class="site-header-inner mobile-x-space content-width"
-        style="
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: 1rem;
-        "
-      >
-        <a href="https://neloxis.com" style="display: flex; align-items: center">
-          <img
-            class="site-nav-logo"
-            src="img/logo.png"
-            alt="Logo"
-            style="height: 50px;"
-          />
-        </a>
-        <ul
-          class="site-nav"
-          style="list-style: none; margin: 0; padding: 0; display: flex;"
-        >
-          <li style="margin: 0 1rem;">
-            <a href="#" style="text-decoration: none; color: #333;">Home</a>
-          </li>
-          <li style="margin: 0 1rem;">
-            <a href="business-solutions/" style="text-decoration: none; color: #333;">Hardware</a>
-          </li>
-          <li style="margin: 0 1rem;">
-            <a href="#" style="text-decoration: none; color: #333;">Support</a>
-          </li>
-          <li style="margin: 0 1rem;">
-            <a href="#" style="text-decoration: none; color: #333;">About Us</a>
-          </li>
-          <li style="margin: 0 1rem;">
-            <a href="https://appsource.microsoft.com/" target="_blank" style="text-decoration: none; color: #333;">Contact Us</a>
-          </li>
-        </ul>
-      </nav>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Small Business Solutions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/products.css">
+    <link rel="stylesheet" href="css/productcard.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+</head>
+<body>
+    <header id="site-header" class="site-header" style="background-color: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); position: fixed; width: 100%; z-index: 1030; top: 0;">
+        <div class="navbar">
+            <a href="https://neloxis.com">
+                <img src="img/logo.png" alt="Logo" style="height: 50px; border-right: 2px solid #333; padding-right: 20px; margin-right: 20px;">
+            </a>
+            <a href="https://neloxis.com/surface-for-business" class="nav-item nav-link">Surface for Business</a>
+            <div class="nav-item">
+                <a href="#" class="nav-link">Devices</a>
+                <div class="dropdown-content" id="dropdownMenu">
+                    <div class="column">
+                        <strong>2-in-1 Tablets</strong>
+                        <a href="https://neloxis.com/surface/pro10">NEW Surface Pro 10</a>
+                        <a href="https://neloxis.com/surface/pro9">Surface Pro 9</a>
+                        <a href="https://neloxis.com/surface/pro8">Surface Pro 8</a>
+                        <a href="https://neloxis.com/surface/go4">Surface Go 4</a>
+                    </div>
+                    <div class="column">
+                        <strong>Laptops</strong>
+                        <a href="https://neloxis.com/surface/laptop6">NEW Surface Laptop 6</a>
+                        <a href="https://neloxis.com/surface/laptop5">Surface Laptop 5</a>
+                        <a href="https://neloxis.com/surface/laptopstudio2">Surface Laptop Studio 2</a>
+                        <a href="https://neloxis.com/surface/laptopgo3">Surface Laptop Go 3</a>
+                    </div>
+                </div>
+            </div>
+            <a href="#" class="nav-item nav-link">Solutions</a>
+            <a href="#" class="nav-item nav-link">Industries</a>
+            <a href="#" class="navbar-toggle" id="js-navbar-toggle">
+                <i class="fa fa-bars"></i>
+            </a>
+        </div>
+        <script src="js/navbar.js"></script>
     </header>
-    <!-- Main content starts here, add padding-top equivalent to the height of the header -->
-    <div style="padding-top: 125px;"> <!-- Adjust the padding-top value as necessary -->
-      <!-- The rest of your page content goes here -->
-    </div>
-    
-    </body>
-    <section id="hero" class="hero-background theme-background">
-      <div class="hero-background-laptop">
-        <div class="content-width hero-box-content mobile-x-space">
-          <div class="hero-box">
-            <div class="hero-box-text">
-              <h2>
-                Work <strong>smart</strong> <br>
-                Work <strong>secure</strong> <br>
-                Work <strong>fast</strong> <br>
-              </h2>
-              <h1>Work<span class="gradiant-purple-text">Magic </span></h1>
-              <h4>
-                Leverage Windows 11 Pro devices + Microsoft 365<sup>1</sup>, the perfect pair for a secure, AI-powered cloud solution.
-              </h4>
-            </div>
-            <a class="hero-button" href="#">Learn More <img src="img/down-arrow.png" alt="down-arrow" width=""></a>
-        </div>
-      </div>
-    </div></section>
 
-    <section id="work-magic-description" class="mobile-x-space">
-      <div class="content-extended-width work-magic-glass-bg">
-        <div class="content-width">
-          <h2>Windows 11 Pro devices + Microsoft 365</h2>
-          <h4>The perfect pair</h4>
-          <div class="work-magic-text">
-            <p>
-              Windows 11 Pro devices and Microsoft 365 offer a complete solution combining a modern, secure, AI-enhanced operating system optimized for productivity and collaboration, and a cloud-based suite of apps that help organizations work smarter and faster.&nbsp;
-            </p>
-          </div>
-          <div class="work-magic-button">
-            <a class="button blue-button" href="#">Upgrade today</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="content-width mobile-x-space">
-      <section id="three-blocks">
-        <p class="">To break new ground, you need ground-breaking devices. Windows 11 Pro devices can accelerate workflows and collaboration 50% on average.<sup>2</sup> With experiences that elevate the potential of everyone on your team.</p>
-
-          <div class="cards-row">
-            <div class="card-item">
-              <div class="card-image-outer">
-                <img
-                  class="img-fill-container"
-                  width="340"
-                  height="250"
-                  alt="Microsoft Surface Laptop 6"
-                  src="img/SUR24_COMMR_L_CA_001_RGB2.png"
-                />
-              </div>
-              <div class="card-text">
-                <h4 style="color: black">
-                  Microsoft Surface Laptop 6 for Business
-                </h4>
-                <p style="color: black">
-                  Surface Laptop 6: Power Meets Elegance.
-                </p>
-                <a class="button blue-button" href="#">Build Your Device</a>
-              </div>
+    <div id="rootContainer_BuyBox">
+        <section class="buy-box material-md-card" aria-label="Product Information for Surface Pro 10 for Business">
+            <div class="buy-box-row">
+                <div class="buy-box-left-col">
+                    <img src="img/SUR24_COMMR_P_AC_003_RGB.png" alt="Surface Pro 10 for Business">
+                    <button class="btn">Open gallery</button>
+                </div>
+                <div class="buy-box-middle-col">
+                    <h3>Surface Pro 10 for Business</h3>
+                    <img src="img/windows_11_pro_logo.png">
+                    <p>This device is preloaded with Windows 11 Pro. <a href="#">Learn more</a></p>
+                    <p>Boost your productivity and creativity with Surface Pro 10 for Business and Microsoft Copilot. Get tablet portability and up to 53% faster performance with the latest Intel processors, all in a durable, ultraportable design. Surface Pro 10 for Business is packed with commercial-grade features, built-in chip-to-cloud security, and AI-driven tools to help simplify daily tasks.<a href="#">Learn more about our offers</a></p>
+                </div>
+                <div class="buy-box-right-col">
+                    <p class="price">Starting From $1,199.99</p>
+                    <a href="#" class="btn build-device-btn">Build your device</a>
+                    <p>Get it as soon as April 23 to 27560 when you choose express shipping</p>
+                    <p>Free 2-3 day shipping. Free returns.</p>
+                    <a href="#" class="enterprise-solutions-btn">Looking for enterprise solutions?</a>
+                </div>
+                <div class="buy-box-footer">
+                    <p>For special business pricing or additional sales support, call us at 919-504-1561, 
+                    Monday to Friday, 9:00 AM to 5:00 PM ET.</p>
+                </div>
             </div>
-            <div class="card-item">
-              <div class="card-image-outer">
-                <img
-                  class="img-fill-container"
-                  width="340"
-                  height="250"
-                  alt="Microsoft Surface Pro 10"
-                  src="img/SUR24_COMMR_P_AC_003_RGB.png"
-                />
-              </div>
-              <div class="card-text">
-                <h4 style="color: black">
-                  Microsoft Surface Pro 10 for Business
-                </h4>
-                <p style="color: black">
-                  Surface Pro 10: Redefining Flexibility.
-                </p>
-                <a class="button blue-button" href="#">Build Your Device</a>
-              </div>
-            </div>
-            <div class="card-item">
-              <div class="card-image-outer">
-                <img
-                  class="img-fill-container"
-                  width="340"
-                  height="250"
-                  alt="Microsoft Surface Go 4"
-                  src="img/SUR24-COMMR-Go4-trans-003.png"
-                />
-              </div>
-              <div class="card-text">
-                <h4 style="color: black">
-                  Microsoft Surface Go 4 for Business
-                </h4>
-                <p style="color: black">
-                  Surface Go 4: Versatile and Portable.
-                </p>
-                <a class="button blue-button" href="#">Build Your Device</a>
-              </div>
-            </div>
-          </div>
         </section>
-      </div>
+    </div>
 
-      <section id="copilot" class="lighter-gray-background">
-        <div class="copilot-block content-width mobile-x-space">
-          <div class="copilot-text">
-            <h3>Experience Copilot in two ways</h3>
-            <div class="copilot-text-two-block">
-              <div class="copilot-text-block">
-                <h4>Copilot in Windows<sup>3</sup></h4>
-                <p>
-                  Enables you to interact with your PC to personalize settings,
-                  accessories, and more actions to enhance creativity and
-                  productivity.
-                </p>
-              </div>
-              <div class="copilot-text-block">
-                <h4>Copilot for Microsoft 365<sup>4</sup></h4>
-                <p>
-                  Works alongside you to unleash creativity, unlock
-                  productivity, and uplevel skills using natural language
-                  prompts directly integrated in your apps.
-                </p>
-              </div>
-            </div>
-            <h4 class="copilot-text-bottom">
-              Learn how Copilot can help you work smart.
-            </h4>
-            <a class="button blue-button" href="#">Learn more</a>
-          </div>
-          <div class="copilot-img">
-            <img src="img/copilot.png" alt="copilot" />
-          </div>
+    <footer id="footer">
+        <div class="footer-text">
+            <a href="#">
+                <img class="site-nav-logo neloxis-logo-header" src="img/logo.png" alt="Neloxis Logo" width="50">
+            </a>
+            <p>&copy; 2024 Neloxis. All rights reserved.</p>
         </div>
-      </section>
-
-      <section id="work" class="lighter-gray-background mobile-x-space">
-        <div class="content-extended-width work-glass-bg">
-          <div class="content-width">
-            <div class="work-block">
-              <div class="work-text">
-                <div class="work-smart">
-                  <h3>
-                    <span class="blue-color">Work smart</span> to unleash user
-                    productivity
-                  </h3>
-                  <p>
-                    Many small and mid-sized organizations rely on teamwork and
-                    collaboration to achieve their goals. Simplify your
-                    employees’ workday and empower them to make a bigger impact
-                    faster with AI assistance. <br /><br />
-                    <span class="purple-text"><strong>42%</strong></span> faster
-                    completion of demanding workloads with Copilot in
-                    Windows<sup>2</sup>
-                  </p>
-                </div>
-                <div class="work-secure">
-                  <h3>
-                    <span class="blue-color">Work secure</span> with advanced
-                    protection
-                  </h3>
-                  <p>
-                    As the digital landscape grows larger and more complex, so
-                    do security threats. Protect your apps, identities, data,
-                    and devices with built-in security features to be more
-                    secure than ever.<br /><br />
-                    <span class="purple-text"><strong>58%</strong></span> drop
-                    in security incidents with Windows 11 Pro devices<sup
-                      >5</sup
-                    >
-                  </p>
-                </div>
-                <div class="work-fast">
-                  <h3>
-                    <span class="blue-color">Work fast</span> and supercharge
-                    your insights and efficiency
-                  </h3>
-                  <p>
-                    As your business grows, your IT infrastructure becomes more
-                    complex and difficult to manage. Reduce costs and burdens on
-                    IT, and deploy scalable and flexible solutions to adapt to
-                    changing needs. <br /><br /><span class="purple-text"
-                      ><strong>80%</strong></span
-                    >
-                    drop in helpdesk calls with enhancements for fast and
-                    reliable connectivity<sup>6</sup>
-                  </p>
-                </div>
-              </div>
-              <div class="work-img">
-                <img src="img/work-image.png" alt="" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- <section id="productivity" class="dark-gray-background">
-      <div class="content-width mobile-x-space">
-        <div class="productivity-block">
-          <div class="main-description-text">
-            <h2>
-              Work smart to unleash user productivity
-            </h2>
-            <h4>
-              Many small and mid-sized organizations rely on teamwork and collaboration to achieve their goals. Simplify your employees’ workday and empower them to make a bigger impact faster with AI assistance. <br> <br> 42% faster completion of demanding workloads with Copilot in Windows
-            </h4>
-          </div>
-          <div class="main-description-img">
-            <img src="./img/placeholder-image-483-483.png" alt="" />
-            <h4>
-              Many small and mid-sized organizations rely on teamwork and collaboration to achieve their goals. Simplify your employees’ workday and empower them to make a bigger impact faster with AI assistance. <br><br> 42% faster completion of demanding workloads with Copilot in Windows
-            </h4>
-          </div>
-        </div>
-      </div>
-    </section> -->
-
-      <!-- <section id="security" class="light-gray-background">
-      <div class="content-width mobile-x-space">
-        <div class="security-block">
-          <div class="security-img">
-            <img
-              src="./img/placeholder-image-black-border-483-483.png"
-              alt=""
-            />
-            <h4>
-              As the digital landscape grows larger and more complex, so do security threats. Protect your apps, identities, data, and devices with built-in security features to be more secure than ever. <br><br> 58% drop in security incidents with Windows 11 Pro devices
-            </h4>
-          </div>
-          <div class="security-text">
-            <h2>
-              Work secure with advanced protection
-            </h2>
-            <h4>
-              As the digital landscape grows larger and more complex, so do security threats. Protect your apps, identities, data, and devices with built-in security features to be more secure than ever. <br><br> 58% drop in security incidents with Windows 11 Pro devices
-            </h4>
-          </div>
-        </div>
-      </div>
-    </section> -->
-
-      <!-- <section id="business-effiency" class="dark-gray-background">
-      <div class="content-width mobile-x-space">
-        <div class="business-effiency-block">
-          <div class="business-effiency-text">
-            <h2>
-              Work fast and supercharge your insights and efficiency
-            </h2>
-            <h4>
-              As your organization grows, your IT infrastructure becomes more complex and difficult to manage. Reduce costs and burdens on IT teams, and deploy scalable and flexible solutions to adapt to changing needs. <br><br> 80% drop in helpdesk calls with enhancements for fast and reliable connectivity
-            </h4>
-          </div>
-          <div class="business-effiency-img">
-            <img src="./img/placeholder-image-483-483.png" alt="" />
-            <h4>
-              As your organization grows, your IT infrastructure becomes more complex and difficult to manage. Reduce costs and burdens on IT teams, and deploy scalable and flexible solutions to adapt to changing needs. <br><br> 80% drop in helpdesk calls with enhancements for fast and reliable connectivity
-            </h4>
-          </div>
-        </div>
-      </div>
-    </section> -->
-
-      <section id="ebook" class="mobile-x-space lighter-gray-background">
-        <div class="content-extended-width ebook-glass-bg">
-          <div class="content-width">
-            <div class="ebook-block">
-              <div class="ebook-text">
-                <h2>
-                  Download the <br />
-                  e-book today
-                </h2>
-                <p>
-                  to learn how you can elevate workstyles with the latest
-                  productivity and security enhancements, and
-                  <span class="purple-text"><strong> Work Magic</strong></span>
-                  with Windows 11 Pro devices and Microsoft 365.
-                </p>
-                <a class="button blue-button" href="#">Get the e-book</a>
-              </div>
-              <div class="ebook-img">
-                <img src="img/e-book.png" alt="e-book" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="apps" class="lighter-gray-background">
-        <div class="content-width mobile-x-space">
-          <h3>
-            Attach Microsoft 365 to<br />
-            your purchase
-          </h3>
-          <div class="apps-block">
-            <div class="apps-images">
-              <img src="img/word.png" alt="word" />
-              <p>Word</p>
-            </div>
-            <div class="apps-images">
-              <img src="img/excel.png" alt="excel" />
-              <p>Excel</p>
-            </div>
-            <div class="apps-images">
-              <img src="img/powerpoint.png" alt="power point" />
-              <p>PowerPoint</p>
-            </div>
-            <div class="apps-images">
-              <img src="img/outlook.png" alt="outlook" />
-              <p>Outlook</p>
-            </div>
-            <div class="apps-images">
-              <img src="img/teams.png" alt="teams" />
-              <p>Teams</p>
-            </div>
-            <div class="apps-images">
-              <img src="img/onedrive.png" alt="onedrive" />
-              <p>OneDrive</p>
-            </div>
-            <div class="apps-images">
-              <img src="img/sharepoint.png" alt="sharepoints" />
-              <p>SharePoint</p>
-            </div>
-            <div class="apps-images">
-              <img src="img/exchange.png" alt="exchange" />
-              <p>Exchange</p>
-            </div>
-            <div class="apps-images">
-              <img src="img/clipchamp.png" alt="clipchamp" />
-              <p>Clipchamp</p>
-            </div>
-            <div class="apps-images">
-              <img src="img/loop.png" alt="loop" />
-              <p>Loop</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="shop">
-        <div class="content-width mobile-x-space">
-          <div class="shop-block">
-            <div class="shop-text">
-              <h3>
-                Are you ready to <span class="blue-color">Work Magic?</span>
-              </h3>
-              <a class="button blue-button" href="#">Shop devices</a>
-            </div>
-            <div class="shop-img">
-              <img src="img/shop.png" alt="shop laptop" />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- <section id="sustainability">
-      <div class="content-width mobile-x-space">
-        <div class="sustainability-text">
-          <h3>Making an impact through recycling</h3>
-          <p>
-            Microsoft is dedicated to protecting the safety and health of our employees, customers, and the public through our environmental policies and practices. Microsoft honors its commitment to environmental sustainability by working with industry groups and NGOs to establish responsible practices in building sustainable products. In 2018, 3.8 million pounds of e-waste were recycled by Microsoft and redirected from landfills. Microsoft is continually working to improve our performance as well as engaging with our stakeholders about our objectives and targets. If you or your organization are interested in contributing to Microsoft's sustainability initiatives by recycling your old hardware, please visit your Original Equipment Manufacturers website for more information.
-          </p>
-          <a class="button blue-button" href="#">Learn how</a>
-        </div>
-      </div>
-    </section> -->
-
-      <section id="pre-footer" class="lighter-gray-background-2">
-        <div class="content-width mobile-x-space">
-          <div class="pre-footer-block">
-            <div class="pre-footer-text">
-              <div class="pre-footer-text-list">
-                <span class="pre-footer-text-number">1</span>
-                <p>Sold separately.</p>
-              </div>
-              <div class="pre-footer-text-list">
-                <span class="pre-footer-text-number">2</span>
-                <p>
-                  Compared to Windows 10 devices. Improve your day-to-day
-                  experience with Windows 11 Pro laptops,
-                  <a
-                    href="https://www.principledtechnologies.com/Microsoft/Windows-11-vs-Window-10-comparison-0423-v2.pdf"
-                    target="_blank"
-                    >Principled Technologies</a
-                  >, February 2023.
-                </p>
-              </div>
-              <div class="pre-footer-text-list">
-                <span class="pre-footer-text-number">3</span>
-                <p>
-                  [Header image] Screen simulated, subject to change. Copilot in
-                  Windows (in preview) is available in select global markets and
-                  will be rolled out to additional markets over time.
-                  <a
-                    href="https://www.microsoft.com/en-us/windows/copilot-ai-features#faq"
-                    target="_blank"
-                    >Learn more</a
-                  >. Copilot with commercial data protection is available at no
-                  additional cost for users with an Entra ID with an enabled,
-                  <a
-                    href="https://www.microsoft.com/en-us/bing/chat/enterprise/?form=MA13FV"
-                    target="_blank"
-                    >eligible Microsoft 365 license</a
-                  >.
-                </p>
-              </div>
-              <div class="pre-footer-text-list">
-                <span class="pre-footer-text-number">4</span>
-                <p>
-                  Copilot for Microsoft 365 may not be available for all markets
-                  and languages. To purchase,
-                  <a
-                    href="https://www.microsoft.com/en-us/microsoft-365/enterprise/copilot-for-microsoft-365"
-                    target="_blank"
-                    >enterprise customers</a
-                  >
-                  must have a license for Microsoft 365 E3 or E5 or Office 365
-                  E3 or E5, and
-                  <a
-                    href="https://www.microsoft.com/en-us/microsoft-365/business/copilot-for-microsoft-365"
-                    target="_blank"
-                    >business customers</a
-                  >
-                  must have a license for Microsoft 365 Business Standard or
-                  Business Premium, or a version of these suites that no longer
-                  includes Microsoft Teams.
-                </p>
-              </div>
-            </div>
-            <div class="pre-footer-text">
-              <div class="pre-footer-text-list">
-                <span class="pre-footer-text-number">5</span>
-                <p>
-                  Windows 11 Survey Report. Techaisle, February 2022. Windows 11
-                  results are in comparison with Windows 10 devices.
-                </p>
-              </div>
-              <div class="pre-footer-text-list">
-                <span class="pre-footer-text-number">6</span>
-                <p>
-                  Commissioned study delivered by Forrester Consulting “The
-                  Total Economic Impact™ of Windows 11 Pro Devices”, December
-                  2022. Note, quantified benefits reflect results over three
-                  years combined into a single composite organization that
-                  generates $1 billion in annual revenue, has 2,000 employees,
-                  refreshes hardware on a four-year cycle, and migrates the
-                  entirety of its workforce to Windows 11 devices.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!DOCTYPE html>
-      <html lang="en">
-        <head>
-          <meta charset="UTF-8" />
-          <title>Your Website Title</title>
-          <style>
-            body {
-              margin: 0;
-              font-family: Arial, sans-serif;
-            }
-
-            #footer {
-              background-color: #fff;
-              box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Shadow line at the top */
-              padding: 20px 0;
-              font-size: 14px;
-            }
-
-            .content-width {
-              max-width: 1200px;
-              margin: 0 auto;
-              padding: 0 15px;
-            }
-
-            .footer-text {
-              display: flex;
-              align-items: center;
-              justify-content: space-between; /* Adjust as per your layout */
-            }
-
-            .footer-text p,
-            .footer-text a {
-              color: #000;
-              text-decoration: none;
-            }
-
-            .footer-text p {
-              margin: 0;
-            }
-
-            .copyright {
-              margin-top: 15px;
-            }
-          </style>
-        </head>
-        <body>
-          <!-- Your content goes here -->
-
-          <footer id="footer">
-            <div class="content-width mobile-x-space">
-              <div class="footer-text">
-                <a href="#">
-                  <img
-                    class="site-nav-logo neloxis-logo-header"
-                    src="img/logo.png"
-                    alt="Neloxis Logo"
-                    width="50"
-                  />
-                </a>
-                <p>&copy; 2024 Neloxis. All rights reserved.</p>
-                <!-- Update year and company name accordingly -->
-
-                if (window.location.pathname.endsWith('index.html')) {
-  window.location.replace(window.location.href.replace('index.html', ''));
-}
-              </div>
-            </div>
-          </footer>
-        </body>
-      </html>
-    </section>
-  </head>
+    </footer>
+    <script src="js/navbar.js"></script>
+</body>
 </html>

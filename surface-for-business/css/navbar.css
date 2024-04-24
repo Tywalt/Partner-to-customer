@@ -8,19 +8,20 @@ body {
 }
 
 /* Styles for the navigation */
-.navbar {
-    display: flex;
-    justify-content: flex-start; /* Align items to the left */
-    background-color: #fff;
+.nav-link {
+    text-decoration: none;
+    color: #000; /* Ensures the text color is black */
     padding: 10px;
-    list-style: none;
-    margin-left: 150px; /* Adjust this value as needed */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Apply the font here */
+    display: block;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Updated font-family */
+    font-size: 16px; /* Sets the font size to 16px */
 }
 
+/* You can also apply the font-family to .nav-item if you want it to be inherited by all child elements. */
 .nav-item {
-    margin: 0 px;
+    margin: 0; /* Removed the space between 0 and px to correct the syntax error */
     position: relative;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Apply the font here */
 }
 
 .nav-link {
