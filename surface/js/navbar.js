@@ -1,29 +1,35 @@
-// Wait for the DOM to be loaded before running the script
 document.addEventListener('DOMContentLoaded', function() {
-    // Get the element that opens the dropdown
-    var devicesDropdown = document.querySelector('.nav-item .nav-link');
+    var navLinks = document.querySelectorAll('.nav-item');
 
-    // Listen for a click event on the dropdown opener
-    devicesDropdown.addEventListener('click', function(event) {
-        // Prevent default link behavior
-        event.preventDefault();
-        
-        // Get the dropdown content element
-        var dropdownContent = this.nextElementSibling;
-        
-        // Toggle the display style
-        dropdownContent.style.display = dropdownContent.style.display === 'flex' ? 'none' : 'flex';
-        
-        // Stop the click event from propagating to the document
-        event.stopPropagation();
+    // Attach click events to nav items to toggle dropdowns
+    navLinks.forEach(function(navItem) {
+        navItem.addEventListener('click', function(event) {
+            // Prevents redirecting if there's a dropdown
+            var dropdownContent = this.querySelector('.dropdown-content');
+            if (dropdownContent) {
+                event.preventDefault();
+                // Toggle current dropdown visibility
+                dropdownContent.style.display = dropdownContent.style.display === 'flex' ? 'none' : 'flex';
+                event.stopPropagation(); // Prevents the click from closing this dropdown
+            }
+        });
     });
 
-    // Close the dropdown when clicking anywhere else on the page
-    window.addEventListener('click', function(event) {
-        // If the clicked element is not part of the dropdown menu, close the dropdown
-        var dropdownContent = document.querySelector('.dropdown-content');
-        if (dropdownContent.style.display === 'flex') {
-            dropdownContent.style.display = 'none';
-        }
+    // Listener to close all dropdowns if the click is outside
+    document.addEventListener('click', function(event) {
+        var dropdowns = document.querySelectorAll('.dropdown-content');
+        dropdowns.forEach(function(dropdown) {
+            if (dropdown.style.display === 'flex') {
+                dropdown.style.display = 'none';
+            }
+        });
+    });
+
+    // Allow dropdown links to function normally
+    document.querySelectorAll('.dropdown-content a').forEach(function(link) {
+        link.addEventListener('click', function(event) {
+            // This allows the link to act as normal without stopping the page navigation
+            event.stopPropagation(); // Stops the dropdown click from propagating to the document
+        });
     });
 });
