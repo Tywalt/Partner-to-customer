@@ -1,0 +1,107 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    padding-top: 70px; /* Adjust for your header */
+    font-family: 'Noto Sans', sans-serif;
+    background: #f4f4f4; /* Light grey background for modern look */
+}
+
+#configuration-main {
+    display: flex;
+    justify-content: center; /* Center children horizontally */
+    align-items: center; /* Center children vertically */
+    padding: 20px;
+    margin-top: 30px; /* Reduced top margin to bring closer to the navbar */
+}
+
+.options {
+    width: 30%; /* Slightly wider to balance the narrower summary */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+    background: #ffffff; /* White background for options area */
+    padding: 20px;
+    border-radius: 8px; /* Rounded corners for modern look */
+    margin-right: 20px; /* Space between options and summary */
+}
+
+.option-group {
+    margin-bottom: 15px;
+}
+
+.option-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.option-boxes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Consistent spacing between boxes */
+}
+
+.option {
+    flex: 1 1 45%; /* Flexible basis with wrapping at less than half width */
+    border: 2px solid #ddd;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: #fff;
+    color: #333;
+}
+
+.option input[type="radio"] {
+    display: none;
+}
+
+.option label {
+    display: block;
+    width: 100%;
+}
+
+.option:hover,
+.option label:hover {
+    border-color: #0078D7; /* Blue border on hover */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Slightly darker shadow on hover for depth */
+}
+
+.option input[type="radio"]:checked + label {
+    border-color: #0078D7; /* Blue border for selected items */
+}
+
+.summary {
+    width: 20%; /* Narrower width for a more vertically elongated look */
+    padding: 10px 15px; /* Adjusted padding for aesthetics */
+    border: 1px solid #ccc;
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Consistent with options */
+    text-align: center;
+    background: #ffffff; /* Consistent background */
+    display: flex;
+    flex-direction: column; /* Organize children in a vertical column */
+    align-items: center; /* Center children horizontally */
+}
+
+.product-image img {
+    width: 70%; /* Adjusted for the narrower summary */
+    height: auto;
+    margin-bottom: 150px; /* Spacing between image and text */
+}
+
+.product-details {
+    margin-top: 5px; /* Tighter spacing for a more compact look */
+}
+
+.btn-next {
+    background-color: #0078D7;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    margin-top: 5px; /* Reduced space before the button */
+}
+
+.btn-next:hover {
+    background-color: #005ea6;
+}

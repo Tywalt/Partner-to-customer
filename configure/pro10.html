@@ -6,7 +6,7 @@
     <title>Small Business Solutions</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/navbar.css">
-    <link rel="stylesheet" href="css/productcard.css">
+    <link rel="stylesheet" href="css/configuration.css">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 </head>
 <body>
@@ -36,46 +36,92 @@
           </div>
           <a href="#" class="nav-item nav-link">Solutions</a>
           <a href="#" class="nav-item nav-link">Industries</a>
-          <!-- Mobile Toggle Button -->
-          <a href="#" class="navbar-toggle" id="js-navbar-toggle">
-              <i class="fa fa-bars"></i>
-          </a>
+</div>
+</header>
+
+<main id="configuration-main">
+    <section class="options">
+        <h2>Configure your Surface Laptop 6 for Business</h2>
+        
+        <!-- Screen Size Options -->
+        <div class="option-group">
+            <h3>Screen Size</h3>
+            <div class="option-boxes">
+                <label class="option">
+                    <input type="radio" name="screen-size" value="13.5" checked>
+                    <span class="box-content">13.5 inch</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="screen-size" value="15">
+                    <span class="box-content">15 inch</span>
+                </label>
+            </div>
         </div>
-    </header>
-    <div id="rootContainer_BuyBox">
-        <section class="buy-box material-md-card" aria-label="Product Information for Surface Pro 10 for Business">
-            <div class="buy-box-row">
-                <div class="buy-box-left-col">
-                    <img src="img/SUR24_COMMR_P_AC_003_RGB.png" alt="Surface Pro 10 for Business">
-                    <button class="btn">Open gallery</button>
-                </div>
-                <div class="buy-box-middle-col">
-                    <h1>Surface Pro 10 for Business</h1>
-                    <img src="img/windows_11_pro_logo.png" alt="Windows 11 Pro Logo">
-                    <p class="windows-info">This device is preloaded with Windows 11 Pro. <a href="#">Learn more</a></p>
-                    <p>Boost your productivity and creativity with Surface Pro 10 for Business and Microsoft Copilot. Get tablet portability and up to 53% faster performance with the latest Intel processors, all in a durable, ultraportable design. Surface Pro 10 for Business is packed with commercial-grade features, built-in chip-to-cloud security, and AI-driven tools to help simplify daily tasks.</p>
-                    <p class="store-info"><strong>Why buy from Neloxis</strong><br>We offer free 2-3 day shipping, 60-day returns, and one-on-one product expert help in finding the best solution for your small business. If you buy a physical product and we lower the price within 60 days from delivery, contact us and we'll refund you the difference. <a href="#">Terms apply.</a></p>
-                    <p class="bundle-info"><strong>Bundle and save with the Surface Pro 10 for Business Essentials Bundle</strong><br>This bundle includes Surface Pro 10 for Business, Surface Pro Signature Keyboard and a Microsoft Protection Plan. <a href="#">Build your bundle</a></p>
-                </div>
-                <div class="buy-box-right-col">
-                    <p class="price">Starting From $1,199.99</p>
-                    <a href="#" class="btn build-device-btn">Build your device</a>
-                    <p id="shipping-info" class="shipping-info">
-                    <p class="return-info">Free 2-3 day shipping. Free returns.</p>
-                    <a href="#" class="enterprise-solutions-btn">Looking for enterprise solutions?</a>
-                </div>
+        
+        <!-- Processor Options -->
+        <div class="option-group">
+            <h3>Processor</h3>
+            <div class="option-boxes">
+                <label class="option">
+                    <input type="radio" name="processor" value="i5" checked>
+                    <span class="box-content">Intel® Core™ Ultra 5 Processor 135H</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="processor" value="i7">
+                    <span class="box-content">Intel® Core™ Ultra 7 Processor 165H</span>
+                </label>
             </div>
-            <div class="buy-box-footer">
-                <div class="footer-content">
-                    <p class="special-business-pricing">
-                        For special business pricing or additional sales support, call us at 919-504-1561, 
-                        Monday to Friday, 9:00 AM to 5:00 PM ET.
-                    </p>
-                </div>
+        </div>
+        
+        <!-- Color Options -->
+        <div class="option-group">
+            <h3>Color</h3>
+            <div class="option-boxes">
+                <label class="option">
+                    <input type="radio" name="color" value="Platinum" checked>
+                    <span class="box-content">Platinum</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="color" value="Black">
+                    <span class="box-content">Black</span>
+                </label>
             </div>
-        </section>
-    </div>
-    <script src="js/navbar.js"></script>
-    <script src="js/shipping-date.js"></script>
+        </div>
+        
+        <!-- Specifications Options -->
+        <div class="option-group">
+            <h3>Specifications</h3>
+            <div class="option-boxes">
+                <label class="option">
+                    <input type="radio" name="specifications" value="8gb" checked>
+                    <span class="box-content">8GB RAM, 256GB SSD</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="specifications" value="16gb">
+                    <span class="box-content">16GB RAM, 256GB SSD</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="specifications" value="32gb">
+                    <span class="box-content">32GB RAM, 512GB SSD</span>
+                </label>
+            </div>
+        </div>
+    </section>
+    
+    <section class="summary">        
+        <div class="product-image">
+            <img src="img/SUR24_COMMR_P_AC_003_RGB.png" alt="Surface Laptop">
+        </div>
+        <div class="product-details">
+            <p class="product-title">Surface Laptop 6 for Business</p>
+            <p class="product-price">$1,199.99</p>
+            <p class="product-description">Platinum, Intel® Core™ Ultra 5 Processor 135H, 8GB RAM, 256GB SSD</p>
+        </div>
+        <button type="button" class="btn-next">Next</button>
+    </section>
+</main>
+
+<script src="js/navbar.js"></script>
+<script src="js/summary.js"></script>
 </body>
 </html>
