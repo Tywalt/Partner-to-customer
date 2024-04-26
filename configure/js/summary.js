@@ -7,26 +7,24 @@ document.addEventListener("DOMContentLoaded", function() {
     let selectedProcessor = '';
     let selectedColor = '';
     let selectedSpec = null;
+    let actionHistory = [];  // Track the order of selections
+
+    // Initially hide specifications
+    hideSpecifications();
 
     processorOptions.forEach(option => {
         option.addEventListener('change', function() {
             selectedProcessor = this.nextElementSibling.textContent.trim();
-            selectedColor = ''; // Reset color selection
-            selectedSpec = null; // Reset specification selection
+            actionHistory.push('processor');  // Add to action history
             updateSummary();
             filterSpecifications();
-            resetColorAndSpec(); // Reset color and specification options
         });
     });
 
     colorOptions.forEach(option => {
         option.addEventListener('change', function() {
             selectedColor = this.nextElementSibling.textContent.trim();
-            // Set default processor to the first option if no processor is selected
-            if (!selectedProcessor) {
-                selectedProcessor = processorOptions[0].nextElementSibling.textContent.trim();
-            }
-            selectedSpec = null; // Reset specification selection
+            actionHistory.push('color');  // Add to action history
             updateSummary();
             filterSpecifications();
         });
@@ -34,125 +32,72 @@ document.addEventListener("DOMContentLoaded", function() {
 
     specOptions.forEach(option => {
         option.addEventListener('change', function() {
-            const specText = this.nextElementSibling.textContent.trim().split(" - ")[0]; // Remove pricing from spec text
-            const price = parseFloat(this.parentElement.getAttribute('data-price'));
-            selectedSpec = { text: specText, price: price };
+            updateSpecBasedSelection(this);
+            actionHistory.push('specification');  // Add to action history
             updateSpecSummary();
-            // Set default processor and color based on specification selection
-            setDefaultValues(specText);
         });
     });
 
-    function setDefaultValues(specText) {
-        switch (specText) {
-            case 'Basic':
-                selectedProcessor = 'i3 Processor';
-                selectedColor = 'Black';
-                updateSummary();
-                break;
-            case 'Standard':
-                selectedProcessor = 'i5 Processor';
-                updateSummary();
-                break;
-            case 'Advanced':
-                selectedProcessor = 'i7 Processor';
-                selectedColor = 'Silver';
-                updateSummary();
-                break;
-            default:
-                // Do nothing for other specifications
-                break;
-        }
+    function hideSpecifications() {
+        specOptions.forEach(option => {
+            option.closest('.option').style.display = 'none';
+        });
+    }
+
+    function updateSpecBasedSelection(optionElement) {
+        selectedSpec = parseSpecDetails(optionElement);
+    }
+
+    function parseSpecDetails(optionElement) {
+        const specText = optionElement.nextElementSibling.textContent.trim().split(" - ")[0];
+        const price = parseFloat(optionElement.parentElement.getAttribute('data-price'));
+        return { text: specText, price: price };
     }
 
     function filterSpecifications() {
-        // Filter specifications based on selected processor and color
-        specOptions.forEach(option => {
-            const parentLabel = option.closest('.option');
-            const processorMatch = parentLabel.getAttribute('data-processor') === selectedProcessor || selectedProcessor === '';
-            const colorMatch = parentLabel.getAttribute('data-color') === selectedColor || selectedColor === '';
-
-            parentLabel.style.display = processorMatch && colorMatch ? 'block' : 'none';
-        });
-
-        // If the currently selected specifications are not visible, clear the selection
-        if (selectedSpec && !isSpecVisible(selectedSpec.text)) {
-            clearSpecSummary();
-            selectedSpec = null;
-        }
-    }
-
-    function isSpecVisible(specText) {
-        return Array.from(specOptions).some(option => option.nextElementSibling.textContent.trim().split(" - ")[0] === specText && option.checked);
-    }
-
-    function updateSpecSummary() {
-        // Clear existing specification details and price
-        clearSpecSummary();
-
-        if (selectedSpec) {
-            // Add the new spec details
-            const specDetail = document.createElement('li');
-            specDetail.textContent = selectedSpec.text;
-            specDetail.className = 'spec-detail'; // Add a class for easy identification
-            summaryDetails.appendChild(specDetail);
-
-            // Add the new pricing detail
-            const pricingDetail = document.createElement('li');
-            pricingDetail.textContent = "$" + selectedSpec.price.toFixed(2); // Display price without "Pricing:" label
-            pricingDetail.className = 'pricing-detail'; // Add a class for easy identification
-            summaryDetails.appendChild(pricingDetail);
-        }
-    }
-
-    function clearSpecSummary() {
-        // Clear existing specification details
-        const existingSpec = summaryDetails.querySelector('.spec-detail');
-        if (existingSpec) {
-            summaryDetails.removeChild(existingSpec);
-        }
-
-        // Clear existing pricing detail
-        const existingPrice = summaryDetails.querySelector('.pricing-detail');
-        if (existingPrice) {
-            summaryDetails.removeChild(existingPrice);
+        if (selectedProcessor || selectedColor) {  // Only display specifications if a processor or color is selected
+            specOptions.forEach(option => {
+                const parentLabel = option.closest('.option');
+                const processorMatch = parentLabel.getAttribute('data-processor') === selectedProcessor || selectedProcessor === '';
+                const colorMatch = parentLabel.getAttribute('data-color') === selectedColor || selectedColor === '';
+                parentLabel.style.display = (processorMatch && colorMatch) ? 'block' : 'none';
+            });
         }
     }
 
     function updateSummary() {
-        // Update the summary for processor, color, and specification
-        summaryDetails.innerHTML = ''; // Clear previous summary details
-
-        // Display processor and color regardless of specification selection
+        summaryDetails.innerHTML = '';  // Clear previous details
         if (selectedProcessor) {
             const processorDetail = document.createElement('li');
             processorDetail.textContent = selectedProcessor;
             summaryDetails.appendChild(processorDetail);
         }
-
         if (selectedColor) {
             const colorDetail = document.createElement('li');
             colorDetail.textContent = selectedColor;
             summaryDetails.appendChild(colorDetail);
         }
+    }
 
-        // Display specification if selected
+    function updateSpecSummary() {
+        clearSpecSummary();
         if (selectedSpec) {
-            const priceDetail = document.createElement('li');
-            priceDetail.textContent = "$" + selectedSpec.price.toFixed(2); // Display price without "Pricing:" label
-            summaryDetails.appendChild(priceDetail);
+            const specDetail = document.createElement('li');
+            specDetail.textContent = selectedSpec.text;
+            specDetail.className = 'spec-detail';
+            summaryDetails.appendChild(specDetail);
+
+            const pricingDetail = document.createElement('li');
+            pricingDetail.textContent = "$" + selectedSpec.price.toFixed(2);
+            pricingDetail.className = 'pricing-detail';
+            summaryDetails.appendChild(pricingDetail);
         }
     }
 
-    function resetColorAndSpec() {
-        // Reset color selection
-        colorOptions.forEach(option => {
-            option.checked = false;
-        });
-
-        // Reset specification selection
-        specOptions.forEach(option => {
-            option.checked = false;
-        });
+    function clearSpecSummary() {
+        const existingSpec = summaryDetails.querySelector('.spec-detail');
+        if (existingSpec) summaryDetails.removeChild(existingSpec);
+        const existingPrice = summaryDetails.querySelector('.pricing-detail');
+        if (existingPrice) summaryDetails.removeChild(existingPrice);
     }
 });
