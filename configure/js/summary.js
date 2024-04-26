@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", function() {
     let selectedProcessor = '';
     let selectedColor = '';
     let selectedSpec = null;
-    let actionHistory = [];  // Track the order of selections
 
     // Initially hide specifications
     hideSpecifications();
@@ -15,26 +14,26 @@ document.addEventListener("DOMContentLoaded", function() {
     processorOptions.forEach(option => {
         option.addEventListener('change', function() {
             selectedProcessor = this.nextElementSibling.textContent.trim();
-            actionHistory.push('processor');  // Add to action history
             updateSummary();
             filterSpecifications();
+            highlightSelectedOption(processorOptions, this);
         });
     });
 
     colorOptions.forEach(option => {
         option.addEventListener('change', function() {
             selectedColor = this.nextElementSibling.textContent.trim();
-            actionHistory.push('color');  // Add to action history
             updateSummary();
             filterSpecifications();
+            highlightSelectedOption(colorOptions, this);
         });
     });
 
     specOptions.forEach(option => {
         option.addEventListener('change', function() {
-            updateSpecBasedSelection(this);
-            actionHistory.push('specification');  // Add to action history
+            selectedSpec = parseSpecDetails(this);
             updateSpecSummary();
+            highlightSelectedOption(specOptions, this);
         });
     });
 
@@ -44,10 +43,6 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    function updateSpecBasedSelection(optionElement) {
-        selectedSpec = parseSpecDetails(optionElement);
-    }
-
     function parseSpecDetails(optionElement) {
         const specText = optionElement.nextElementSibling.textContent.trim().split(" - ")[0];
         const price = parseFloat(optionElement.parentElement.getAttribute('data-price'));
@@ -55,18 +50,16 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function filterSpecifications() {
-        if (selectedProcessor || selectedColor) {  // Only display specifications if a processor or color is selected
-            specOptions.forEach(option => {
-                const parentLabel = option.closest('.option');
-                const processorMatch = parentLabel.getAttribute('data-processor') === selectedProcessor || selectedProcessor === '';
-                const colorMatch = parentLabel.getAttribute('data-color') === selectedColor || selectedColor === '';
-                parentLabel.style.display = (processorMatch && colorMatch) ? 'block' : 'none';
-            });
-        }
+        specOptions.forEach(option => {
+            const parentLabel = option.closest('.option');
+            const processorMatch = parentLabel.getAttribute('data-processor') === selectedProcessor || selectedProcessor === '';
+            const colorMatch = parentLabel.getAttribute('data-color') === selectedColor || selectedColor === '';
+            parentLabel.style.display = (processorMatch && colorMatch) ? 'block' : 'none';
+        });
     }
 
     function updateSummary() {
-        summaryDetails.innerHTML = '';  // Clear previous details
+        summaryDetails.innerHTML = '';
         if (selectedProcessor) {
             const processorDetail = document.createElement('li');
             processorDetail.textContent = selectedProcessor;
@@ -84,12 +77,12 @@ document.addEventListener("DOMContentLoaded", function() {
         if (selectedSpec) {
             const specDetail = document.createElement('li');
             specDetail.textContent = selectedSpec.text;
-            specDetail.className = 'spec-detail';
+            specDetail.classList.add('spec-detail'); // Add class for easy removal
             summaryDetails.appendChild(specDetail);
 
             const pricingDetail = document.createElement('li');
             pricingDetail.textContent = "$" + selectedSpec.price.toFixed(2);
-            pricingDetail.className = 'pricing-detail';
+            pricingDetail.classList.add('pricing-detail'); // Add class for easy removal
             summaryDetails.appendChild(pricingDetail);
         }
     }
@@ -99,5 +92,16 @@ document.addEventListener("DOMContentLoaded", function() {
         if (existingSpec) summaryDetails.removeChild(existingSpec);
         const existingPrice = summaryDetails.querySelector('.pricing-detail');
         if (existingPrice) summaryDetails.removeChild(existingPrice);
+    }
+
+    function highlightSelectedOption(options, selectedOption) {
+        options.forEach(option => {
+            const optionBox = option.closest('.option');
+            if (option === selectedOption) {
+                optionBox.classList.add('highlight');
+            } else {
+                optionBox.classList.remove('highlight');
+            }
+        });
     }
 });
