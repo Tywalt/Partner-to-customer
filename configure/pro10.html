@@ -13,115 +13,114 @@
     <header id="site-header" class="site-header" style="background-color: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); position: fixed; width: 100%; z-index: 1030; top: 0;">
         <!-- Navigation Bar -->
         <div class="navbar">
-          <a href="https://neloxis.com">
-            <img src="img/logo.png" alt="Logo" style="height: 50px; border-right: 2px solid #333; padding-right: 20px; margin-right: 20px;">
-          </a>
-          <a href="https://neloxis.com/surface-for-business" class="nav-item nav-link">Surface for Business</a>
-          <div class="nav-item">
-            <a href="#" class="nav-link">Devices</a>
-            <div class="dropdown-content" id="dropdownMenu">
-                <div class="column">
-                    <strong>2-in-1 Tablets</strong>
-                    <a href="https://neloxis.com/surface/pro10">NEW Surface Pro 10</a>
-                    <a href="https://neloxis.com/surface/pro9">Surface Pro 9</a>
-                    <a href="https://neloxis.com/surface/go4">Surface Go 4</a>
+            <a href="https://neloxis.com">
+                <img src="img/logo.png" alt="Logo" style="height: 50px; border-right: 2px solid #333; padding-right: 20px; margin-right: 20px;">
+            </a>
+            <a href="https://neloxis.com/surface-for-business" class="nav-item nav-link">Surface for Business</a>
+            <div class="nav-item">
+                <a href="#" class="nav-link">Devices</a>
+                <div class="dropdown-content" id="dropdownMenu">
+                    <div class="column">
+                        <strong>2-in-1 Tablets</strong>
+                        <a href="https://neloxis.com/surface/pro10">NEW Surface Pro 10</a>
+                        <a href="https://neloxis.com/surface/pro9">Surface Pro 9</a>
+                        <a href="https://neloxis.com/surface/go4">Surface Go 4</a>
+                    </div>
+                    <div class="column">
+                        <strong>Laptops</strong>
+                        <a href="https://neloxis.com/surface/laptop6">NEW Surface Laptop 6</a>
+                        <a href="https://neloxis.com/surface/laptopstudio2">Surface Laptop Studio 2</a>
+                        <a href="https://neloxis.com/surface/laptopgo3">Surface Laptop Go 3</a>
+                    </div>
                 </div>
-                <div class="column">
-                    <strong>Laptops</strong>
-                    <a href="https://neloxis.com/surface/laptop6">NEW Surface Laptop 6</a>
-                    <a href="https://neloxis.com/surface/laptopstudio2">Surface Laptop Studio 2</a>
-                    <a href="https://neloxis.com/surface/laptopgo3">Surface Laptop Go 3</a>
+            </div>
+            <a href="#" class="nav-item nav-link">Solutions</a>
+            <a href="#" class="nav-item nav-link">Industries</a>
+        </div>
+    </header>
+
+    <main id="configuration-main">
+        <section class="options">
+            <h2>Configure your Surface Laptop 6 for Business</h2>
+            <!-- Ensure no option is checked by default -->
+            <!-- Screen Size Options -->
+            <div class="option-group">
+                <h3>Screen Size</h3>
+                <div class="option-boxes">
+                    <label class="option">
+                        <input type="radio" name="screen-size" value="13.5">
+                        <span class="box-content">13.5 inch</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="screen-size" value="15">
+                        <span class="box-content">15 inch</span>
+                    </label>
                 </div>
             </div>
-          </div>
-          <a href="#" class="nav-item nav-link">Solutions</a>
-          <a href="#" class="nav-item nav-link">Industries</a>
-</div>
-</header>
+            <!-- Processor Options -->
+            <div class="option-group">
+                <h3>Processor</h3>
+                <div class="option-boxes">
+                    <label class="option">
+                        <input type="radio" name="processor" value="i5">
+                        <span class="box-content">Intel® Core™ Ultra 5 Processor 135H</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="processor" value="i7">
+                        <span class="box-content">Intel® Core™ Ultra 7 Processor 165H</span>
+                    </label>
+                </div>
+            </div>
+            <!-- Color Options -->
+            <div class="option-group">
+                <h3>Color</h3>
+                <div class="option-boxes">
+                    <label class="option">
+                        <input type="radio" name="color" value="Platinum">
+                        <span class="box-content">Platinum</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="color" value="Black">
+                        <span class="box-content">Black</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Specifications Options -->
+            <div class="option-group">
+                <h3>Specifications</h3>
+                <div class="option-boxes">
+                    <label class="option">
+                        <input type="radio" name="specifications" value="8gb">
+                        <span class="box-content">8GB RAM, 256GB SSD</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="specifications" value="16gb">
+                        <span class="box-content">16GB RAM, 256GB SSD</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="specifications" value="32gb">
+                        <span class="box-content">32GB RAM, 512GB SSD</span>
+                    </label>
+                </div>
+            </div>
+        </section>
+        
+        <section class="summary">
+            <div class="product-image">
+                <img src="img/SUR24_COMMR_P_AC_003_RGB.png" alt="Surface Laptop">
+            </div>
+            <div class="product-details">
+                <p class="product-title">Surface Laptop 6 for Business</p>
+                <ul id="summary-details">
+                    <!-- Dynamic options will be listed here -->
+                </ul>
+            </div>
+            <button type="button" class="btn-next">Next</button>
+        </section>
+    </main>
 
-<main id="configuration-main">
-    <section class="options">
-        <h2>Configure your Surface Laptop 6 for Business</h2>
-        
-        <!-- Screen Size Options -->
-        <div class="option-group">
-            <h3>Screen Size</h3>
-            <div class="option-boxes">
-                <label class="option">
-                    <input type="radio" name="screen-size" value="13.5" checked>
-                    <span class="box-content">13.5 inch</span>
-                </label>
-                <label class="option">
-                    <input type="radio" name="screen-size" value="15">
-                    <span class="box-content">15 inch</span>
-                </label>
-            </div>
-        </div>
-        
-        <!-- Processor Options -->
-        <div class="option-group">
-            <h3>Processor</h3>
-            <div class="option-boxes">
-                <label class="option">
-                    <input type="radio" name="processor" value="i5" checked>
-                    <span class="box-content">Intel® Core™ Ultra 5 Processor 135H</span>
-                </label>
-                <label class="option">
-                    <input type="radio" name="processor" value="i7">
-                    <span class="box-content">Intel® Core™ Ultra 7 Processor 165H</span>
-                </label>
-            </div>
-        </div>
-        
-        <!-- Color Options -->
-        <div class="option-group">
-            <h3>Color</h3>
-            <div class="option-boxes">
-                <label class="option">
-                    <input type="radio" name="color" value="Platinum" checked>
-                    <span class="box-content">Platinum</span>
-                </label>
-                <label class="option">
-                    <input type="radio" name="color" value="Black">
-                    <span class="box-content">Black</span>
-                </label>
-            </div>
-        </div>
-        
-        <!-- Specifications Options -->
-        <div class="option-group">
-            <h3>Specifications</h3>
-            <div class="option-boxes">
-                <label class="option">
-                    <input type="radio" name="specifications" value="8gb" checked>
-                    <span class="box-content">8GB RAM, 256GB SSD</span>
-                </label>
-                <label class="option">
-                    <input type="radio" name="specifications" value="16gb">
-                    <span class="box-content">16GB RAM, 256GB SSD</span>
-                </label>
-                <label class="option">
-                    <input type="radio" name="specifications" value="32gb">
-                    <span class="box-content">32GB RAM, 512GB SSD</span>
-                </label>
-            </div>
-        </div>
-    </section>
-    
-    <section class="summary">        
-        <div class="product-image">
-            <img src="img/SUR24_COMMR_P_AC_003_RGB.png" alt="Surface Laptop">
-        </div>
-        <div class="product-details">
-            <p class="product-title">Surface Laptop 6 for Business</p>
-            <p class="product-price">$1,199.99</p>
-            <p class="product-description">Platinum, Intel® Core™ Ultra 5 Processor 135H, 8GB RAM, 256GB SSD</p>
-        </div>
-        <button type="button" class="btn-next">Next</button>
-    </section>
-</main>
-
-<script src="js/navbar.js"></script>
-<script src="js/summary.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/summary.js"></script>
 </body>
 </html>
