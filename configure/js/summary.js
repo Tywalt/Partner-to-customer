@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function() {
             summaryDetails.appendChild(specDetail);
 
             const pricingDetail = document.createElement('li');
-            pricingDetail.textContent = "$" + selectedSpec.price.toFixed(2);
+            pricingDetail.textContent = "$" + selectedSpec.price.toLocaleString(undefined, { maximumFractionDigits: 2 });
             pricingDetail.classList.add('pricing-detail'); // Add class for easy removal
             summaryDetails.appendChild(pricingDetail);
         }
