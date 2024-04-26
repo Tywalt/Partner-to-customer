@@ -9,7 +9,7 @@ body, html {
 #configuration-main {
     display: flex;
     justify-content: center; /* Center children horizontally */
-    align-items: center; /* Center children vertically */
+    align-items: flex-start; /* Align children to the top */
     padding: 20px;
     margin-top: 30px; /* Reduced top margin to bring closer to the navbar */
 }
@@ -41,12 +41,20 @@ body, html {
 .option {
     flex: 1 1 45%; /* Flexible basis with wrapping at less than half width */
     border: 2px solid #ddd;
-    padding: 10px;
-    border-radius: 4px;
+    padding: 15px; /* Increased padding for a more button-like appearance */
+    border-radius: 6px; /* Smooth rounded corners for modern look */
     cursor: pointer;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    background-color: #fff;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    background-color: #f9f9f9; /* Light background for the button */
     color: #333;
+    margin-bottom: 10px; /* Space between options */
+    text-align: center; /* Center text in the button */
+}
+
+.option:hover {
+    border-color: #0078D7; /* Blue border on hover */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Elevated shadow effect on hover */
+    transform: translateY(-3px); /* Slight lift effect */
 }
 
 .option input[type="radio"] {
@@ -56,16 +64,7 @@ body, html {
 .option label {
     display: block;
     width: 100%;
-}
-
-.option:hover,
-.option label:hover {
-    border-color: #0078D7; /* Blue border on hover */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Slightly darker shadow on hover for depth */
-}
-
-.option input[type="radio"]:checked + label {
-    border-color: #0078D7; /* Blue border for selected items */
+    height: 100%;
 }
 
 .summary {
@@ -74,21 +73,29 @@ body, html {
     border: 1px solid #ccc;
     border-radius: 8px; /* Rounded corners */
     box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Consistent with options */
-    text-align: center;
     background: #ffffff; /* Consistent background */
     display: flex;
     flex-direction: column; /* Organize children in a vertical column */
-    align-items: center; /* Center children horizontally */
+    align-items: flex-start; /* Align children to the start (left) */
 }
 
 .product-image img {
     width: 70%; /* Adjusted for the narrower summary */
     height: auto;
-    margin-bottom: 150px; /* Spacing between image and text */
+    display: block; /* Ensures the image is a block for margin auto to work */
+    margin-left: auto; /* Centers the image horizontally */
+    margin-right: auto; /* Centers the image horizontally */
 }
 
-.product-details {
-    margin-top: 5px; /* Tighter spacing for a more compact look */
+.product-details, .product-details ul, .product-details ul li {
+    text-align: left;
+    list-style-type: none; /* Removes bullet points */
+    padding: 0; /* Resets any padding that may affect alignment */
+    margin: 0; /* Resets any margin that may affect alignment */
+}
+
+.product-details div {
+    margin-bottom: 10px; /* Space between text items */
 }
 
 .btn-next {
@@ -98,8 +105,8 @@ body, html {
     padding: 10px 20px;
     cursor: pointer;
     display: block;
-    width: 100%;
-    margin-top: 5px; /* Reduced space before the button */
+    width: 100%; /* Button fills the width of its container */
+    margin-top: 15px; /* Space above the button */
 }
 
 .btn-next:hover {
