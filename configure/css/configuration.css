@@ -131,3 +131,69 @@ body, html {
 .btn-next:hover {
     background-color: #005ea6;
 }
+.progress-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+    position: relative;
+    padding: 0 10px; /* Smaller padding */
+}
+
+.progress-bar::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 10px; /* Adjusted to match padding */
+    right: 10px; /* Adjusted to match padding */
+    height: 1px; /* Thinner line */
+    background: #d3d3d3;
+    z-index: 0;
+    transform: translateY(-50%);
+}
+
+.step {
+    width: 16px; /* Reduced size of circles */
+    height: 16px; /* Reduced size of circles */
+    text-align: center;
+    line-height: 16px; /* Adjust line-height to match new height */
+    border: 2px solid #0078D7;
+    border-radius: 50%;
+    background-color: #fff;
+    color: #0078D7;
+    z-index: 1;
+    position: relative;
+    font-size: 10px; /* Reduced font size */
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.step.active {
+    background-color: #0078D7;
+    color: white;
+    border-color: #0078D7;
+}
+
+.step-label {
+    position: absolute;
+    width: auto; /* Allow the label width to auto-adjust */
+    max-width: 60px; /* Maximum width to prevent overlap */
+    text-align: center;
+    bottom: -15px; /* Adjust positioning */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px; /* Smaller font size */
+    color: #666;
+    padding: 0 5px; /* Padding for smaller text */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Special adjustment for first and last labels */
+.step:first-child .step-label {
+    transform: translateX(-30%); /* Adjust the percentage for alignment */
+}
+
+.step:last-child .step-label {
+    transform: translateX(30%); /* Adjust the percentage for alignment */
+}
