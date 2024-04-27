@@ -98,10 +98,87 @@ document.addEventListener("DOMContentLoaded", function() {
         options.forEach(option => {
             const optionBox = option.closest('.option');
             if (option === selectedOption) {
-                optionBox.classList.add('highlight');
+                optionBox.classList.add('checked'); // Add class to simulate checked effect
             } else {
-                optionBox.classList.remove('highlight');
+                optionBox.classList.remove('checked'); // Remove class to simulate unchecked effect
             }
         });
     }
+
+    // Function to check if all sections are filled out
+    function allSectionsFilled() {
+        return selectedProcessor && selectedColor && selectedSpec;
+    }
+
+    // Function to highlight incomplete sections and options
+    function highlightIncomplete() {
+        if (!selectedProcessor) {
+            processorOptions.forEach(option => {
+                option.closest('.option').classList.add('highlight-error');
+            });
+        }
+        if (!selectedColor) {
+            colorOptions.forEach(option => {
+                option.closest('.option').classList.add('highlight-error');
+            });
+        }
+        if (!selectedSpec) {
+            specOptions.forEach(option => {
+                option.closest('.option').classList.add('highlight-error');
+            });
+        }
+    }
+
+    // Function to remove error highlighting
+    function removeErrorHighlighting() {
+        document.querySelectorAll('.highlight-error').forEach(element => {
+            element.classList.remove('highlight-error');
+        });
+    }
+
+    // Function to handle "Next" button click
+    function handleNextButtonClick() {
+        removeErrorHighlighting(); // Remove previous error highlighting
+        if (!allSectionsFilled()) {
+            highlightIncomplete(); // Highlight incomplete sections and options
+            return; // Prevent further action if sections are incomplete
+        }
+        // Proceed with next step logic here
+        console.log("All sections filled out. Proceeding to next step...");
+    }
+
+    // Attach "Next" button click event listener
+    document.querySelector('.btn-next').addEventListener('click', handleNextButtonClick);
+});
+
+// Function to handle highlighting of options
+function highlightOptions() {
+    // Get all option elements
+    var options = document.querySelectorAll('.option');
+
+    // Remove any existing highlight classes
+    options.forEach(function(option) {
+        option.classList.remove('highlighted');
+    });
+
+    // Get the selected processor and color
+    var selectedProcessor = document.querySelector('input[name="processor"]:checked').value;
+    var selectedColor = document.querySelector('input[name="color"]:checked').value;
+
+    // Find the option with the selected processor and color
+    var selectedOption = document.querySelector('.option[data-processor="' + selectedProcessor + '"][data-color="' + selectedColor + '"]');
+
+    // Add a red highlight class to the selected option
+    selectedOption.classList.add('highlighted');
+}
+
+// Attach change event listeners to processor and color radio buttons
+var processorRadioButtons = document.querySelectorAll('input[name="processor"]');
+processorRadioButtons.forEach(function(radioButton) {
+    radioButton.addEventListener('change', highlightOptions);
+});
+
+var colorRadioButtons = document.querySelectorAll('input[name="color"]');
+colorRadioButtons.forEach(function(radioButton) {
+    radioButton.addEventListener('change', highlightOptions);
 });

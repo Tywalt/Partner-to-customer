@@ -2,7 +2,7 @@
 body, html {
     height: 100%;
     margin: 0;
-    padding-top: 70px;
+    padding-top: 35px;
     font-family: 'Noto Sans', sans-serif;
     background: #f4f4f4;
 }
@@ -137,33 +137,31 @@ body, html {
     align-items: center;
     margin: 20px 0;
     position: relative;
-    padding: 0 10px; /* Smaller padding */
+    padding: 0 10px;
 }
 
 .progress-bar::before {
     content: '';
     position: absolute;
     top: 50%;
-    left: 10px; /* Adjusted to match padding */
-    right: 10px; /* Adjusted to match padding */
-    height: 1px; /* Thinner line */
+    left: 10px;
+    right: 10px;
+    height: 1px;
     background: #d3d3d3;
     z-index: 0;
     transform: translateY(-50%);
 }
 
 .step {
-    width: 16px; /* Reduced size of circles */
-    height: 16px; /* Reduced size of circles */
+    position: relative;
+    width: 16px;
+    height: 16px;
     text-align: center;
-    line-height: 16px; /* Adjust line-height to match new height */
     border: 2px solid #0078D7;
     border-radius: 50%;
     background-color: #fff;
     color: #0078D7;
     z-index: 1;
-    position: relative;
-    font-size: 10px; /* Reduced font size */
     transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
@@ -173,27 +171,48 @@ body, html {
     border-color: #0078D7;
 }
 
+/* Adjustments to the general .step-label styles for better control */
+/* Adjustments to the general .step-label styles for better control */
 .step-label {
     position: absolute;
-    width: auto; /* Allow the label width to auto-adjust */
-    max-width: 60px; /* Maximum width to prevent overlap */
-    text-align: center;
-    bottom: -15px; /* Adjust positioning */
+    top: 125%; /* Adjusted to lower the label below the circle */
     left: 50%;
     transform: translateX(-50%);
-    font-size: 10px; /* Smaller font size */
+    font-size: 12px; /* Adjusted font size for better fit */
     color: #666;
-    padding: 0 5px; /* Padding for smaller text */
+    text-align: center;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    padding: 2px 5px;
+    max-width: 100px; /* Ensures text does not overflow on small screens */
 }
 
-/* Special adjustment for first and last labels */
+/* Special adjustments for the first and last step labels */
 .step:first-child .step-label {
-    transform: translateX(-30%); /* Adjust the percentage for alignment */
+    transform: translateX(-20%); /* Shift the first label slightly left */
+    text-align: left;
 }
 
 .step:last-child .step-label {
-    transform: translateX(30%); /* Adjust the percentage for alignment */
+    transform: translateX(-75%); /* Shift the last label further to the right */
+    text-align: right;
+}
+
+@media (max-width: 768px) {
+    .step-label {
+        font-size: 10px; /* Smaller font size for small devices */
+        top: 130%; /* Slightly lower to accommodate smaller circle size */
+    }
+    .step:first-child .step-label {
+        transform: translateX(-10%); /* Less shift for smaller screens */
+    }
+    .step:last-child .step-label {
+        transform: translateX(15%); /* Less shift for smaller screens, moved to the right */
+    }
+}
+
+.highlight-error {
+    outline: 2px solid red;
+    outline-offset: 2px;
 }

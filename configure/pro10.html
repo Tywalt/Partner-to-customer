@@ -45,19 +45,19 @@
             <h2>Configure your Surface Pro 10 for Business</h2>
             <h5>Surface Pro 10 for Business</h5>
             <div class="progress-bar">
-                <div class="step">
-                    <div class="step-circle active"></div> <!-- Active circle -->
-                    <div class="step-label">Specifications</div>
-                </div>
-                <div class="step">
-                    <div class="step-circle"></div> <!-- Inactive circle -->
-                    <div class="step-label">Add-ons</div>
-                </div>
-                <div class="step">
-                    <div class="step-circle"></div> <!-- Inactive circle -->
-                    <div class="step-label">Accessories</div>
-                </div>
-            </div>
+    <div class="step active">
+        <div class="step-circle"></div> <!-- This is the circle for "Specifications" -->
+        <div class="step-label">Specifications</div>
+    </div>
+    <div class="step">
+        <div class="step-circle"></div>
+        <div class="step-label">Add-ons</div>
+    </div>
+    <div class="step">
+        <div class="step-circle"></div>
+        <div class="step-label">Accessories</div>
+    </div>
+</div>
             <!-- Processor Options -->
             <div class="option-group">
                 <h3>Processor</h3>
@@ -164,7 +164,7 @@
                     <!-- Dynamic options will be listed here -->
                 </ul>
             </div>
-            <button type="button" class="btn-next" onclick="goToAccessories()">Next</button>
+            <button type="button" class="btn-next" onclick="highlightOptions(); goToAccessories()">Next</button>
         </section>
     </main>
 
