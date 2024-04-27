@@ -3,182 +3,115 @@ document.addEventListener("DOMContentLoaded", function() {
     const colorOptions = document.querySelectorAll('input[name="color"]');
     const specOptions = document.querySelectorAll('input[name="specifications"]');
     const summaryDetails = document.getElementById('summary-details');
+    const nextButton = document.querySelector('.btn-next');
 
-    let selectedProcessor = '';
-    let selectedColor = '';
-    let selectedSpec = null;
+    processorOptions.forEach(option => option.addEventListener('change', () => updateOptions('processor')));
+    colorOptions.forEach(option => option.addEventListener('change', () => updateOptions('color')));
+    specOptions.forEach(option => option.addEventListener('change', handleSelectionChange));
 
-    // Initially hide specifications
-    hideSpecifications();
+    function updateOptions(changed) {
+        clearErrorHighlights();
+        if (changed !== 'specifications') {
+            resetSpecifications();
+        }
+        updateSelections();
+        filterSpecifications();
+        updateSummary();
+    }
 
-    processorOptions.forEach(option => {
-        option.addEventListener('change', function() {
-            selectedProcessor = this.nextElementSibling.textContent.trim();
-            updateSummary();
-            filterSpecifications();
-            highlightSelectedOption(processorOptions, this);
-        });
-    });
-
-    colorOptions.forEach(option => {
-        option.addEventListener('change', function() {
-            selectedColor = this.nextElementSibling.textContent.trim();
-            updateSummary();
-            filterSpecifications();
-            highlightSelectedOption(colorOptions, this);
-        });
-    });
-
-    specOptions.forEach(option => {
-        option.addEventListener('change', function() {
-            selectedSpec = parseSpecDetails(this);
-            updateSpecSummary();
-            highlightSelectedOption(specOptions, this);
-        });
-    });
-
-    function hideSpecifications() {
+    function resetSpecifications() {
         specOptions.forEach(option => {
-            option.closest('.option').style.display = 'none';
+            option.checked = false; // Explicitly uncheck all specifications when changing processors or colors
+            option.closest('.option').classList.remove('checked');
         });
     }
 
-    function parseSpecDetails(optionElement) {
-        const specText = optionElement.nextElementSibling.textContent.trim().split(" - ")[0];
-        const price = parseFloat(optionElement.parentElement.getAttribute('data-price'));
-        return { text: specText, price: price };
+    function handleSelectionChange() {
+        clearErrorHighlights();
+        specOptions.forEach(option => { // Explicitly ensure that no other specifications are checked
+            option.closest('.option').classList.remove('checked');
+        });
+        this.closest('.option').classList.add('checked');
+        updateSummary();
     }
 
     function filterSpecifications() {
+        const selectedProcessorName = document.querySelector('input[name="processor"]:checked')?.nextElementSibling.textContent.trim();
+        const selectedColorName = document.querySelector('input[name="color"]:checked')?.nextElementSibling.textContent.trim();
         specOptions.forEach(option => {
-            const parentLabel = option.closest('.option');
-            const processorMatch = parentLabel.getAttribute('data-processor') === selectedProcessor || selectedProcessor === '';
-            const colorMatch = parentLabel.getAttribute('data-color') === selectedColor || selectedColor === '';
-            parentLabel.style.display = (processorMatch && colorMatch) ? 'block' : 'none';
+            const matchesProcessor = option.closest('.option').getAttribute('data-processor') === selectedProcessorName;
+            const matchesColor = option.closest('.option').getAttribute('data-color') === selectedColorName;
+            option.closest('.option').style.display = (matchesProcessor && matchesColor) ? 'block' : 'none';
+        });
+    }
+
+    function updateSelections() {
+        const selections = [processorOptions, colorOptions, specOptions];
+        selections.forEach(group => {
+            group.forEach(option => {
+                if (option.checked) {
+                    option.closest('.option').classList.add('checked');
+                } else {
+                    option.closest('.option').classList.remove('checked');
+                }
+            });
+        });
+    }
+
+    function clearErrorHighlights() {
+        document.querySelectorAll('.option').forEach(option => {
+            option.classList.remove('highlight-error');
         });
     }
 
     function updateSummary() {
         summaryDetails.innerHTML = '';
-        if (selectedProcessor) {
-            const processorDetail = document.createElement('li');
-            processorDetail.textContent = selectedProcessor;
-            summaryDetails.appendChild(processorDetail);
+        const selectedProcessorText = document.querySelector('input[name="processor"]:checked')?.nextElementSibling.textContent.trim();
+        const selectedColorText = document.querySelector('input[name="color"]:checked')?.nextElementSibling.textContent.trim();
+        const selectedSpecText = document.querySelector('input[name="specifications"]:checked')?.nextElementSibling.textContent.trim();
+        const selectedSpecPrice = document.querySelector('input[name="specifications"]:checked')?.closest('.option').getAttribute('data-price');
+
+        if (selectedProcessorText) {
+            const processorLi = document.createElement('li');
+            processorLi.textContent = selectedProcessorText;
+            summaryDetails.appendChild(processorLi);
         }
-        if (selectedColor) {
-            const colorDetail = document.createElement('li');
-            colorDetail.textContent = selectedColor;
-            summaryDetails.appendChild(colorDetail);
+        if (selectedColorText) {
+            const colorLi = document.createElement('li');
+            colorLi.textContent = selectedColorText;
+            summaryDetails.appendChild(colorLi);
         }
-    }
-
-    function updateSpecSummary() {
-        clearSpecSummary();
-        if (selectedSpec) {
-            const specDetail = document.createElement('li');
-            specDetail.textContent = selectedSpec.text;
-            specDetail.classList.add('spec-detail'); // Add class for easy removal
-            summaryDetails.appendChild(specDetail);
-
-            const pricingDetail = document.createElement('li');
-            pricingDetail.textContent = "$" + selectedSpec.price.toLocaleString(undefined, { maximumFractionDigits: 2 });
-            pricingDetail.classList.add('pricing-detail'); // Add class for easy removal
-            summaryDetails.appendChild(pricingDetail);
+        if (selectedSpecText) {
+            const specLi = document.createElement('li');
+            specLi.textContent = selectedSpecText.split(" - ")[0];
+            summaryDetails.appendChild(specLi);
         }
-    }
-
-    function clearSpecSummary() {
-        const existingSpec = summaryDetails.querySelector('.spec-detail');
-        if (existingSpec) summaryDetails.removeChild(existingSpec);
-        const existingPrice = summaryDetails.querySelector('.pricing-detail');
-        if (existingPrice) summaryDetails.removeChild(existingPrice);
-    }
-
-    function highlightSelectedOption(options, selectedOption) {
-        options.forEach(option => {
-            const optionBox = option.closest('.option');
-            if (option === selectedOption) {
-                optionBox.classList.add('checked'); // Add class to simulate checked effect
-            } else {
-                optionBox.classList.remove('checked'); // Remove class to simulate unchecked effect
-            }
-        });
-    }
-
-    // Function to check if all sections are filled out
-    function allSectionsFilled() {
-        return selectedProcessor && selectedColor && selectedSpec;
-    }
-
-    // Function to highlight incomplete sections and options
-    function highlightIncomplete() {
-        if (!selectedProcessor) {
-            processorOptions.forEach(option => {
-                option.closest('.option').classList.add('highlight-error');
-            });
-        }
-        if (!selectedColor) {
-            colorOptions.forEach(option => {
-                option.closest('.option').classList.add('highlight-error');
-            });
-        }
-        if (!selectedSpec) {
-            specOptions.forEach(option => {
-                option.closest('.option').classList.add('highlight-error');
-            });
+        if (selectedSpecPrice) {
+            const priceLi = document.createElement('li');
+            priceLi.textContent = `$${parseFloat(selectedSpecPrice).toFixed(2)}`;
+            summaryDetails.appendChild(priceLi);
         }
     }
 
-    // Function to remove error highlighting
-    function removeErrorHighlighting() {
-        document.querySelectorAll('.highlight-error').forEach(element => {
-            element.classList.remove('highlight-error');
-        });
-    }
-
-    // Function to handle "Next" button click
-    function handleNextButtonClick() {
-        removeErrorHighlighting(); // Remove previous error highlighting
-        if (!allSectionsFilled()) {
-            highlightIncomplete(); // Highlight incomplete sections and options
-            return; // Prevent further action if sections are incomplete
-        }
-        // Proceed with next step logic here
-        console.log("All sections filled out. Proceeding to next step...");
-    }
-
-    // Attach "Next" button click event listener
-    document.querySelector('.btn-next').addEventListener('click', handleNextButtonClick);
-});
-
-// Function to handle highlighting of options
-function highlightOptions() {
-    // Get all option elements
-    var options = document.querySelectorAll('.option');
-
-    // Remove any existing highlight classes
-    options.forEach(function(option) {
-        option.classList.remove('highlighted');
+    nextButton.addEventListener('click', function() {
+        clearErrorHighlights();
+        checkAllSectionsFilled();
     });
 
-    // Get the selected processor and color
-    var selectedProcessor = document.querySelector('input[name="processor"]:checked').value;
-    var selectedColor = document.querySelector('input[name="color"]:checked').value;
+    function checkAllSectionsFilled() {
+        let allFilled = true;
+        [processorOptions, colorOptions, specOptions].forEach(group => {
+            if (!Array.from(group).some(option => option.checked)) {
+                allFilled = false;
+                Array.from(group).forEach(option => option.closest('.option').classList.add('highlight-error'));
+            }
+        });
 
-    // Find the option with the selected processor and color
-    var selectedOption = document.querySelector('.option[data-processor="' + selectedProcessor + '"][data-color="' + selectedColor + '"]');
-
-    // Add a red highlight class to the selected option
-    selectedOption.classList.add('highlighted');
-}
-
-// Attach change event listeners to processor and color radio buttons
-var processorRadioButtons = document.querySelectorAll('input[name="processor"]');
-processorRadioButtons.forEach(function(radioButton) {
-    radioButton.addEventListener('change', highlightOptions);
-});
-
-var colorRadioButtons = document.querySelectorAll('input[name="color"]');
-colorRadioButtons.forEach(function(radioButton) {
-    radioButton.addEventListener('change', highlightOptions);
+        if (!allFilled) {
+            console.error("Please complete all selections.");
+        } else {
+            console.log("All sections filled out. Proceeding to next step...");
+            // Additional logic here for moving to the next step
+        }
+    }
 });
