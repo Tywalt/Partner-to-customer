@@ -2,11 +2,14 @@ document.addEventListener("DOMContentLoaded", function() {
     const processorOptions = document.querySelectorAll('input[name="processor"]');
     const colorOptions = document.querySelectorAll('input[name="color"]');
     const specOptions = document.querySelectorAll('input[name="specifications"]');
+    const accessoriesOptions = document.querySelectorAll('input[name="accessories"]');
     const summaryDetails = document.getElementById('summary-details');
+    const nextButton = document.querySelector('.btn-next');
 
     let selectedProcessor = '';
     let selectedColor = '';
     let selectedSpec = null;
+    let selectedAccessories = [];
 
     // Initially hide specifications
     hideSpecifications();
@@ -18,6 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
             filterSpecifications();
             highlightSelectedOption(processorOptions, this);
             removeErrorHighlighting();
+            validateSelections();
         });
     });
 
@@ -28,6 +32,7 @@ document.addEventListener("DOMContentLoaded", function() {
             filterSpecifications();
             highlightSelectedOption(colorOptions, this);
             removeErrorHighlighting();
+            validateSelections();
         });
     });
 
@@ -37,6 +42,24 @@ document.addEventListener("DOMContentLoaded", function() {
             updateSpecSummary();
             highlightSelectedOption(specOptions, this);
             removeErrorHighlighting();
+            validateSelections();
+        });
+    });
+
+    accessoriesOptions.forEach(option => {
+        option.addEventListener('change', function() {
+            const accessory = this.nextElementSibling.textContent.trim();
+            if (this.checked) {
+                selectedAccessories.push(accessory);
+            } else {
+                const index = selectedAccessories.indexOf(accessory);
+                if (index !== -1) {
+                    selectedAccessories.splice(index, 1);
+                }
+            }
+            updateSummary();
+            removeErrorHighlighting();
+            validateSelections();
         });
     });
 
@@ -73,6 +96,11 @@ document.addEventListener("DOMContentLoaded", function() {
             colorDetail.textContent = selectedColor;
             summaryDetails.appendChild(colorDetail);
         }
+        selectedAccessories.forEach(accessory => {
+            const accessoryDetail = document.createElement('li');
+            accessoryDetail.textContent = accessory;
+            summaryDetails.appendChild(accessoryDetail);
+        });
     }
 
     function updateSpecSummary() {
@@ -114,36 +142,38 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    function validateSelections() {
+        const categories = ['processor', 'color', 'specifications'];
+        categories.forEach(category => {
+            const selected = document.querySelector(`input[name="${category}"]:checked`);
+            const categoryContainer = document.querySelector(`[data-category="${category}"]`);
+            if (!selected) {
+                categoryContainer.classList.add('highlight-error');
+            } else {
+                categoryContainer.classList.remove('highlight-error');
+            }
+        });
+
+        // Check if there are three accessories selected
+        const accessoriesContainer = document.getElementById('Accessories');
+        if (selectedAccessories.length !== 3) {
+            accessoriesContainer.classList.add('highlight-error');
+        } else {
+            accessoriesContainer.classList.remove('highlight-error');
+        }
+    }
+
     function handleNextButtonClick() {
-        removeErrorHighlighting();
-        if (!allSectionsFilled()) {
-            highlightIncomplete();
+        validateSelections();
+        if (document.querySelectorAll('.highlight-error').length > 0) {
             return;
         }
         console.log("All sections filled out. Proceeding to next step...");
     }
 
-    function allSectionsFilled() {
-        return selectedProcessor && selectedColor && selectedSpec;
-    }
+    nextButton.addEventListener('click', handleNextButtonClick);
 
-    function highlightIncomplete() {
-        if (!selectedProcessor) {
-            processorOptions.forEach(option => {
-                option.closest('.option').classList.add('highlight-error');
-            });
-        }
-        if (!selectedColor) {
-            colorOptions.forEach(option => {
-                option.closest('.option').classList.add('highlight-error');
-            });
-        }
-        if (!selectedSpec) {
-            specOptions.forEach(option => {
-                option.closest('.option').classList.add('highlight-error');
-            });
-        }
-    }
-
-    document.querySelector('.btn-next').addEventListener('click', handleNextButtonClick);
+    // Validate selections on page load and page show
+    window.addEventListener('load', validateSelections);
+    window.addEventListener('pageshow', validateSelections);
 });
