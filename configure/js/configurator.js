@@ -2,120 +2,92 @@ document.addEventListener("DOMContentLoaded", function() {
     const nextButtons = document.querySelectorAll('.btn-next');
     const sections = document.querySelectorAll('.options');
     const progressBar = document.querySelector('.progress-bar');
-    const specificationsLink = document.getElementById('specifications-link');
-    const specificationsSection = document.getElementById('specifications');
-    const addonsSection = document.getElementById('addons');
-    const summary = document.querySelector('.summary');
-    const summaryAddon = summary.querySelector('.addon-summary');
-    const summarySpecification = summary.querySelector('.specification-summary');
-    const circles = progressBar.querySelectorAll('.step circle');
     let currentSectionIndex = 0;
 
+    // Handle clicking on the 'Next' button
     nextButtons.forEach(button => button.addEventListener('click', function() {
-        moveToNextSection();
+        // If the current section is valid, move to the next one
+        if (checkAllOptionsSelected(sections[currentSectionIndex])) {
+            moveToNextSection();
+        } else {
+            // If not all options are selected, highlight the ones that are missing
+            highlightUnselectedOptions(sections[currentSectionIndex], true);
+        }
     }));
 
-    // Event listener for radio buttons
-    const radioButtons = document.querySelectorAll('input[type="radio"]');
-    radioButtons.forEach(button => {
-        button.addEventListener('change', function(event) {
-            // Uncheck all other radio buttons in the same group
-            const groupName = event.target.name;
-            document.querySelectorAll(`input[type="radio"][name="${groupName}"]`).forEach(btn => {
-                btn.closest('.option').classList.remove('checked');
-            });
-
-            // Check the selected radio button
-            event.target.closest('.option').classList.add('checked');
-        });
-    });
-
+    // Move to the next section logic
     function moveToNextSection() {
         const currentSection = sections[currentSectionIndex];
-        const nextSection = sections[currentSectionIndex + 1];
-
-        // Check if all options are selected in the current section
-        if (checkAllOptionsSelected(currentSection)) {
-            currentSection.classList.add('hidden');
-            nextSection.classList.remove('hidden');
-            updateProgressBar(currentSectionIndex + 1);
-            currentSectionIndex++;
-
-            // Highlight options if moving to the add-ons section
-            if (nextSection.id === 'addons') {
-                highlightUnselectedOptions(addonsSection);
-            } else {
-                highlightUnselectedOptions(currentSection);
-            }
-
-            // Update summary if moving to the summary section
-            if (nextSection.id === 'summary') {
-                updateSummary();
-            }
-        } else {
-            // If options are not selected, remove highlighting from the current section
-            removeHighlightOptions(currentSection);
-        }
+        const nextSection = sections[currentSectionIndex + 1] || sections[0];
+        transitionSections(currentSection, nextSection);
     }
 
+    // Handle the transition between sections
+    function transitionSections(currentSection, nextSection) {
+        currentSection.classList.add('hidden');
+        nextSection.classList.remove('hidden');
+        updateProgressBar(currentSectionIndex + 1);
+        currentSectionIndex = Array.from(sections).indexOf(nextSection);
+        // No need to highlight unselected options on transition
+    }
+
+    // Update the progress bar based on the current section
     function updateProgressBar(stepNumber) {
-        circles.forEach((circle, index) => {
-            if (index <= stepNumber) {
-                circle.setAttribute('fill', '#007bff'); // Fill color (change as needed)
-            } else {
-                circle.setAttribute('fill', 'none'); // Empty color (change as needed)
-            }
+        progressBar.querySelectorAll('.step-circle').forEach((circle, index) => {
+            circle.setAttribute('fill', index < stepNumber ? '#007bff' : 'none');
         });
     }
 
+    // Check if all required options are selected in the current section
     function checkAllOptionsSelected(section) {
-        const options = section.querySelectorAll('input[type="radio"]:checked');
-        return options.length > 0;
-    }
-
-    function highlightUnselectedOptions(section) {
-        const options = section.querySelectorAll('input[type="radio"]');
-        options.forEach(option => {
-            // Only apply the green effect if the option is checked
-            if (option.checked) {
-                option.closest('.option').classList.add('checked');
-            } else {
-                option.closest('.option').classList.remove('checked');
-            }
+        const optionGroups = section.querySelectorAll('.option-group');
+        return Array.from(optionGroups).every(group => {
+            const selected = group.querySelector('input[type="radio"]:checked');
+            return selected !== null;
         });
     }
 
-    function removeHighlightOptions(section) {
-        const options = section.querySelectorAll('input[type="radio"]');
-        options.forEach(option => {
-            option.closest('.option').classList.remove('checked');
+    // Highlight unselected options if needed
+    function highlightUnselectedOptions(section, highlightErrors) {
+        const optionGroups = section.querySelectorAll('.option-group');
+        optionGroups.forEach(group => {
+            const selected = group.querySelector('input[type="radio"]:checked');
+            group.querySelectorAll('.option').forEach(option => {
+                option.classList.remove('checked', 'highlight-error');
+                if (selected && option.contains(selected)) {
+                    option.classList.add('checked');
+                } else if (!selected && highlightErrors) {
+                    option.classList.add('highlight-error');
+                }
+            });
         });
     }
 
-    function updateSummary() {
-        const selectedOptions = addonsSection.querySelectorAll('input[type="radio"][name="warranty"]:checked');
-        let summaryText = "";
-        selectedOptions.forEach(option => {
-            summaryText += option.value + "<br>";
+    // Event listener for radio button changes
+    sections.forEach(section => {
+        section.querySelectorAll('input[type="radio"]').forEach(input => {
+            input.addEventListener('change', function() {
+                // Remove 'checked' class from all options in the same group
+                const groupName = input.getAttribute('name');
+                section.querySelectorAll(`input[name="${groupName}"]`).forEach(inp => {
+                    inp.closest('.option').classList.remove('checked');
+                });
+                // Add 'checked' class to the clicked option
+                input.closest('.option').classList.add('checked');
+            });
         });
-        summaryAddon.innerHTML = summaryText;
-    }
-
-    specificationsLink.addEventListener('click', function(event) {
-        event.preventDefault(); // Prevent the default link behavior
-        specificationsSection.classList.remove('hidden');
-        addonsSection.classList.add('hidden');
-        // Reset progress bar to show only one filled circle for Specifications
-        updateProgressBar(0);
-        currentSectionIndex = 0; // Reset current section index
     });
 
-    // Add event listeners to add-ons radio buttons
-    const addonRadioButtons = addonsSection.querySelectorAll('input[type="radio"][name="warranty"]');
-    addonRadioButtons.forEach(button => {
-        button.addEventListener('change', updateSummary);
+    // Navigation between sections
+    document.querySelectorAll('.step-label').forEach(label => {
+        label.addEventListener('click', function() {
+            const targetId = this.textContent.trim().toLowerCase().replace(/\s+/g, '');
+            const targetSection = document.getElementById(targetId);
+            sections.forEach(sec => sec.classList.add('hidden'));
+            targetSection.classList.remove('hidden');
+            const newSectionIndex = Array.from(sections).indexOf(targetSection);
+            updateProgressBar(newSectionIndex);
+            currentSectionIndex = newSectionIndex;
+        });
     });
-
-    // Initialize progress bar with one filled circle for Specifications
-    updateProgressBar(0);
 });
