@@ -173,7 +173,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     nextButton.addEventListener('click', handleNextButtonClick);
 
-    // Validate selections on page load and page show
+    // Validate selections on page load, page show, and popstate
     window.addEventListener('load', validateSelections);
     window.addEventListener('pageshow', validateSelections);
+    window.addEventListener('popstate', validateSelections);
 });
