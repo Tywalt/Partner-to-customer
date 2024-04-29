@@ -253,3 +253,10 @@ body, html {
     border-color: #f44336; /* Red border for errors */
     background-color: #FFEBEE; /* Light red background for visibility */
 }
+.option input[type="radio"],
+.option input[type="checkbox"] {
+    display: none;
+}
+.option[data-processor] {
+    display: none; /* Hide all specification options initially */
+}

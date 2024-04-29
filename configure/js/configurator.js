@@ -5,7 +5,10 @@ document.addEventListener("DOMContentLoaded", function() {
     let currentSectionIndex = 0;
     let selections = {
         processor: null,
-        color: null
+        color: null,
+        specifications: null,
+        warranty: null,
+        accessories: null
     };
 
     // Update progress bar and handle section navigation
@@ -57,22 +60,40 @@ document.addEventListener("DOMContentLoaded", function() {
     // Update summary and apply filters
     function updateSummary() {
         const summaryElement = document.getElementById('summary-details');
-        summaryElement.innerHTML = '';
-        Object.entries(selections).forEach(([key, value]) => {
+        summaryElement.innerHTML = ''; // Clear existing summary details
+
+        // Define the order of keys as they should appear in the summary
+        const displayOrder = ['processor', 'color', 'specifications', 'warranty', 'accessories'];
+
+        displayOrder.forEach(key => {
+            const value = selections[key];
             if (value) {
-                const li = document.createElement('li');
-                li.textContent = value;
-                summaryElement.appendChild(li);
+                if (Array.isArray(value)) { // Handle arrays for multiple selections like accessories
+                    value.forEach(item => {
+                        const li = document.createElement('li');
+                        li.textContent = item;
+                        summaryElement.appendChild(li);
+                    });
+                } else { // For single values like processor, color, specifications, warranty
+                    const li = document.createElement('li');
+                    li.textContent = value;
+                    summaryElement.appendChild(li);
+                }
             }
         });
     }
 
     function applyFilters() {
-        const specificationOptions = document.querySelectorAll('.options[data-category="specifications"] .option');
+        const specificationOptions = document.querySelectorAll('.option[data-processor]');
         specificationOptions.forEach(option => {
-            const processorMatch = option.dataset.processor === selections.processor;
-            const colorMatch = option.dataset.color === selections.color;
-            option.style.display = (processorMatch && colorMatch) ? 'block' : 'none';
+            const processorMatch = option.dataset.processor === selections.processor || !selections.processor;
+            const colorMatch = option.dataset.color === selections.color || !selections.color;
+
+            if (processorMatch && colorMatch) {
+                option.style.display = 'block';
+            } else {
+                option.style.display = 'none';
+            }
         });
     }
 
@@ -80,7 +101,16 @@ document.addEventListener("DOMContentLoaded", function() {
     sections.forEach(section => {
         section.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(input => {
             input.addEventListener('change', function() {
-                selections[input.name] = input.nextElementSibling.textContent.trim();
+                if (input.type === 'checkbox' && section.id === "Accessories") {
+                    // Uncheck all other checkboxes
+                    section.querySelectorAll('input[type="checkbox"]').forEach(otherInput => {
+                        otherInput.checked = false;
+                    });
+                    input.checked = true;
+                    selections[input.name] = input.nextElementSibling.textContent.trim();
+                } else if (input.type === 'radio') {
+                    selections[input.name] = input.nextElementSibling.textContent.trim();
+                }
                 validateSection();
                 updateSummary();
                 if (input.name === 'processor' || input.name === 'color') {
@@ -92,11 +122,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
     nextButton.addEventListener('click', function() {
         if (validateSection(true)) {
-            updateSummary();
             if (currentSectionIndex < sections.length - 1) {
                 navigateToSection(currentSectionIndex + 1);
             } else {
-                window.location.href = 'https://neloxis.com'; // Redirect on the last section
+                // Redirect on the last section
+                window.location.href = 'https://neloxis.com';
             }
         }
     });
