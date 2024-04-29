@@ -245,3 +245,11 @@ body, html {
 .back-link:hover {
     text-decoration: underline;
 }
+.highlight-success {
+    background-color: #E8F5E9; /* Light green background */
+    border-color: #4CAF50; /* Green border */
+}
+.option.highlight-error {
+    border-color: #f44336; /* Red border for errors */
+    background-color: #FFEBEE; /* Light red background for visibility */
+}
