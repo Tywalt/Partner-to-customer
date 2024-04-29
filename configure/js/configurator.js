@@ -3,7 +3,12 @@ document.addEventListener("DOMContentLoaded", function() {
     const sections = document.querySelectorAll('.options');
     const progressBar = document.querySelector('.progress-bar');
     let currentSectionIndex = 0;
+    let selections = {
+        processor: null,
+        color: null
+    };
 
+    // Update progress bar and handle section navigation
     function updateProgressBar() {
         progressBar.querySelectorAll('.step').forEach((step, index) => {
             step.classList.remove('active');
@@ -23,63 +28,64 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
+    // Validation and real-time updates
     function validateSection(applyHighlight = false) {
         const currentSection = sections[currentSectionIndex];
         let allCategoriesValid = true;
 
-        const optionGroups = currentSection.querySelectorAll('.option-group');
-        optionGroups.forEach(group => {
-            const inputs = group.querySelectorAll('input[type="radio"], input[type="checkbox"]');
-            const selectedInput = Array.from(inputs).find(input => input.checked);
-            if (!selectedInput) {
-                if (applyHighlight) {
-                    inputs.forEach(input => {
-                        input.closest('.option').classList.add('highlight-error');
-                        input.closest('.option').classList.remove('highlight-success');
-                    });
-                }
+        currentSection.querySelectorAll('.option-group').forEach(group => {
+            const selectedInput = group.querySelector('input:checked');
+            if (!selectedInput && applyHighlight) {
+                group.querySelectorAll('.option').forEach(option => {
+                    option.classList.add('highlight-error');
+                });
                 allCategoriesValid = false;
             } else {
-                inputs.forEach(input => {
-                    input.closest('.option').classList.remove('highlight-error');
-                    if (input === selectedInput) {
-                        input.closest('.option').classList.add('highlight-success');
-                    } else {
-                        input.closest('.option').classList.remove('highlight-success');
-                    }
+                group.querySelectorAll('.option').forEach(option => {
+                    option.classList.remove('highlight-error');
+                    option.classList.remove('highlight-success');
                 });
+                if (selectedInput) {
+                    selectedInput.closest('.option').classList.add('highlight-success');
+                }
             }
         });
 
         return allCategoriesValid;
     }
 
+    // Update summary and apply filters
     function updateSummary() {
         const summaryElement = document.getElementById('summary-details');
-        summaryElement.innerHTML = '';  // Clear existing entries
-    
-        // Loop through each section and append only the values of checked inputs
-        sections.forEach(section => {
-            section.querySelectorAll('.option-group').forEach(group => {
-                const input = group.querySelector('input:checked');
-                if (input) {
-                    const value = input.nextElementSibling.textContent.trim();
-                    const li = document.createElement('li');
-                    li.textContent = value;  // Append only the value
-                    summaryElement.appendChild(li);
-                }
-            });
+        summaryElement.innerHTML = '';
+        Object.entries(selections).forEach(([key, value]) => {
+            if (value) {
+                const li = document.createElement('li');
+                li.textContent = value;
+                summaryElement.appendChild(li);
+            }
         });
     }
-    
 
+    function applyFilters() {
+        const specificationOptions = document.querySelectorAll('.options[data-category="specifications"] .option');
+        specificationOptions.forEach(option => {
+            const processorMatch = option.dataset.processor === selections.processor;
+            const colorMatch = option.dataset.color === selections.color;
+            option.style.display = (processorMatch && colorMatch) ? 'block' : 'none';
+        });
+    }
+
+    // Event listeners for all inputs
     sections.forEach(section => {
-        section.querySelectorAll('.option-group').forEach(group => {
-            group.querySelectorAll('input').forEach(input => {
-                input.addEventListener('change', function() {
-                    validateSection(); // Validate and update highlights immediately on change
-                    updateSummary(); // Update summary in real time
-                });
+        section.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(input => {
+            input.addEventListener('change', function() {
+                selections[input.name] = input.nextElementSibling.textContent.trim();
+                validateSection();
+                updateSummary();
+                if (input.name === 'processor' || input.name === 'color') {
+                    applyFilters();
+                }
             });
         });
     });
@@ -92,8 +98,6 @@ document.addEventListener("DOMContentLoaded", function() {
             } else {
                 window.location.href = 'https://neloxis.com'; // Redirect on the last section
             }
-        } else {
-            alert('Please select an option in each category before proceeding.');
         }
     });
 
