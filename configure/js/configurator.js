@@ -127,9 +127,21 @@ document.addEventListener("DOMContentLoaded", function() {
                     selections[input.name] = input.nextElementSibling.textContent.trim();
                     applyFilters();
                     updateSummary();
-                } else if (input.type === 'checkbox' && section.id === "Accessories") {
-                    // Handle checkbox behavior for accessories
-                    selections[input.name] = input.checked ? input.nextElementSibling.textContent.trim() : null;
+                } else if (input.type === 'checkbox') {
+                    // Special handling for accessories
+                    if (section.id === "Accessories") {
+                        // Uncheck all other checkboxes in the same section
+                        const checkboxes = section.querySelectorAll('input[type="checkbox"]');
+                        checkboxes.forEach(checkbox => {
+                            if (checkbox !== input && checkbox.checked) {
+                                checkbox.checked = false; // Uncheck the other checkbox
+                            }
+                        });
+                        selections[input.name] = input.checked ? input.nextElementSibling.textContent.trim() : null;
+                    } else {
+                        // Handle checkbox behavior for other options
+                        selections[input.name] = input.checked ? input.nextElementSibling.textContent.trim() : null;
+                    }
                     updateSummary();
                 } else if (input.type === 'radio') {
                     // Handle radio button behavior for other options
@@ -140,7 +152,6 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         });
     });
-
     nextButton.addEventListener('click', function() {
         if (validateSection(true)) {
             if (currentSectionIndex < sections.length - 1) {
