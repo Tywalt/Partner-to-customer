@@ -57,24 +57,22 @@ document.addEventListener("DOMContentLoaded", function() {
         return allCategoriesValid;
     }
 
-    // Update summary and apply filters
+    // Update summary
     function updateSummary() {
         const summaryElement = document.getElementById('summary-details');
         summaryElement.innerHTML = ''; // Clear existing summary details
 
-        // Define the order of keys as they should appear in the summary
         const displayOrder = ['processor', 'color', 'specifications', 'warranty', 'accessories'];
-
         displayOrder.forEach(key => {
             const value = selections[key];
             if (value) {
-                if (Array.isArray(value)) { // Handle arrays for multiple selections like accessories
+                if (Array.isArray(value)) {
                     value.forEach(item => {
                         const li = document.createElement('li');
                         li.textContent = item;
                         summaryElement.appendChild(li);
                     });
-                } else { // For single values like processor, color, specifications, warranty
+                } else {
                     const li = document.createElement('li');
                     li.textContent = value;
                     summaryElement.appendChild(li);
@@ -83,39 +81,62 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    // Function to reset the specifications if the new filter makes them invalid
+    function resetInvalidSpecifications() {
+        selections.specifications = null; // Reset specifications in selections object
+    }
+
     function applyFilters() {
-        const specificationOptions = document.querySelectorAll('.option[data-processor]');
+        const specificationOptions = document.querySelectorAll('.option[data-processor], .option[data-color]');
+        let foundVisible = false;
+    
         specificationOptions.forEach(option => {
             const processorMatch = option.dataset.processor === selections.processor || !selections.processor;
             const colorMatch = option.dataset.color === selections.color || !selections.color;
-
             if (processorMatch && colorMatch) {
                 option.style.display = 'block';
+                foundVisible = true;
             } else {
                 option.style.display = 'none';
+                // Reset any input elements within hidden options
+                const inputs = option.querySelectorAll('input');
+                inputs.forEach(input => {
+                    if (input.checked) {
+                        input.checked = false; // Clear selection
+                        const optionName = input.name;
+                        selections[optionName] = null; // Clear the stored selection
+                    }
+                });
             }
         });
+    
+        if (!foundVisible && selections.specifications) {
+            resetInvalidSpecifications();
+            updateSummary(); // Update the summary as specifications might have changed
+        }
     }
+    
 
     // Event listeners for all inputs
     sections.forEach(section => {
         section.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(input => {
             input.addEventListener('change', function() {
-                if (input.type === 'checkbox' && section.id === "Accessories") {
-                    // Uncheck all other checkboxes
-                    section.querySelectorAll('input[type="checkbox"]').forEach(otherInput => {
-                        otherInput.checked = false;
-                    });
-                    input.checked = true;
+                if (input.name === 'processor' || input.name === 'color') {
+                    // Clear specifications if processor or color is changed
+                    resetInvalidSpecifications();
                     selections[input.name] = input.nextElementSibling.textContent.trim();
+                    applyFilters();
+                    updateSummary();
+                } else if (input.type === 'checkbox' && section.id === "Accessories") {
+                    // Handle checkbox behavior for accessories
+                    selections[input.name] = input.checked ? input.nextElementSibling.textContent.trim() : null;
+                    updateSummary();
                 } else if (input.type === 'radio') {
+                    // Handle radio button behavior for other options
                     selections[input.name] = input.nextElementSibling.textContent.trim();
+                    updateSummary();
                 }
                 validateSection();
-                updateSummary();
-                if (input.name === 'processor' || input.name === 'color') {
-                    applyFilters();
-                }
             });
         });
     });
