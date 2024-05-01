@@ -2,13 +2,14 @@ document.addEventListener("DOMContentLoaded", function() {
     const nextButton = document.querySelector('.btn-next');
     const sections = document.querySelectorAll('.options');
     const progressBar = document.querySelector('.progress-bar');
+    const totalPriceElement = document.getElementById('total-price');
     let currentSectionIndex = 0;
     let selections = {
         processor: null,
         color: null,
         specifications: null,
         warranty: null,
-        accessories: null
+        accessories: []
     };
 
     // Update progress bar and handle section navigation
@@ -21,7 +22,6 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     }
-
     function navigateToSection(index) {
         if (index < currentSectionIndex || validateSection(true)) {
             sections[currentSectionIndex].classList.add('hidden');
@@ -55,6 +55,17 @@ document.addEventListener("DOMContentLoaded", function() {
         });
 
         return allCategoriesValid;
+    }
+
+    function updateTotalPrice() {
+        let newTotalPrice = 0; // Initialize new total price calculation
+        document.querySelectorAll('.options input:checked').forEach(input => {
+            const priceElement = input.closest('.option').querySelector('.price');
+            if (priceElement && priceElement.dataset.price) {
+                newTotalPrice += parseFloat(priceElement.dataset.price);
+            }
+        });
+        totalPriceElement.textContent = `$${newTotalPrice.toFixed(2)}`; // Update the display
     }
 
     // Update summary
@@ -164,4 +175,21 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     updateProgressBar();
+});
+document.querySelectorAll('.options').forEach(section => {
+    section.addEventListener('change', function(event) {
+        if (event.target.type === 'radio' || event.target.type === 'checkbox') {
+            const input = event.target;
+            // Handle selection logic (simplified for demonstration)
+            if (input.type === 'checkbox') {
+                selections[input.name] = input.checked ? input.nextElementSibling.textContent.trim() : null;
+            } else if (input.type === 'radio') {
+                selections[input.name] = input.nextElementSibling.textContent.trim();
+            }
+
+            updateSummary();
+            validateSection();
+            updateTotalPrice(); // Recalculate and update price on each change
+        }
+    });
 });
