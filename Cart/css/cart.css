@@ -1,11 +1,3 @@
-
-        body {
-            font-family: 'Noto Sans', sans-serif;
-            margin: 0;
-            padding-top: 80px; /* Adjust based on header height */
-            background: #f4f4f4;
-        }
-
         .cart-container {
             width: 60%;
             margin: 20px auto;

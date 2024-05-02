@@ -190,11 +190,14 @@ document.addEventListener("DOMContentLoaded", function() {
             if (currentSectionIndex < sections.length - 1) {
                 navigateToSection(currentSectionIndex + 1);
             } else {
-                // Redirect on the last section
+                // Save selections to local storage
+                localStorage.setItem('cart', JSON.stringify(selections));
+                // Redirect to the cart page
                 window.location.href = 'https://neloxis.com/cart';
             }
         }
     });
+    
     updateProgressBar();
     updateTotalPrice(); // Initial call to set the total price based on default selections
 });
