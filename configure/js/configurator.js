@@ -191,7 +191,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 navigateToSection(currentSectionIndex + 1);
             } else {
                 // Redirect on the last section
-                window.location.href = 'https://neloxis/cart.com';
+                window.location.href = 'https://neloxis/cart';
             }
         }
     });
