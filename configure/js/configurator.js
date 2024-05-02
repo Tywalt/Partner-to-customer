@@ -191,7 +191,7 @@ document.addEventListener("DOMContentLoaded", function() {
             } else {
                 // Save to local storage and redirect on the last section
                 localStorage.setItem('cart', JSON.stringify(selections));
-                window.location.href = 'https://neloxis.com/cart';
+                window.location.href = '/cart';
             }
         }
     });
