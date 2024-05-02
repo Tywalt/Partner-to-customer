@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
         accessories: []
     };
 
+    // Updates the visual progress bar based on the current section index
     function updateProgressBar() {
         progressBar.querySelectorAll('.step').forEach((step, index) => {
             step.classList.remove('active');
@@ -21,6 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    // Navigates to the specified section index
     function navigateToSection(index) {
         if (index < currentSectionIndex || validateSection(true)) {
             sections[currentSectionIndex].classList.add('hidden');
@@ -31,6 +33,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
+    // Validates the current section to ensure a selection has been made
     function validateSection(applyHighlight = false) {
         const currentSection = sections[currentSectionIndex];
         let allCategoriesValid = true;
@@ -54,45 +57,42 @@ document.addEventListener("DOMContentLoaded", function() {
         return allCategoriesValid;
     }
 
+    // Updates the summary of selected items
     function updateSummary() {
         const summaryElement = document.getElementById('summary-details');
-        summaryElement.innerHTML = '';  // Clear previous content
-    
+        summaryElement.innerHTML = ''; // Clear previous content
+
         const categories = {
             'Surface Pro 10 for Business': ['processor', 'color', 'specifications'],
             'Add-Ons': ['warranty'],
             'Accessories': ['accessories']
         };
-    
+
         Object.keys(categories).forEach(category => {
             let hasValues = false;
             const keys = categories[category];
             const contentContainer = document.createElement('div');
             contentContainer.className = 'summary-category';
-    
-            if (Array.isArray(keys)) {
-                keys.forEach(key => {
-                    const value = selections[key];
-                    if (value) {
-                        if (Array.isArray(value) && value.length > 0) {
-                            // Handle arrays for multiple selections like warranty and accessories
-                            value.forEach(item => {
-                                hasValues = true;
-                                const detail = document.createElement('p');
-                                detail.textContent = item;
-                                contentContainer.appendChild(detail);
-                            });
-                        } else if (typeof value === 'string' && value.trim() !== '') {
-                            // Handle single selections like processor, color, specifications
+
+            keys.forEach(key => {
+                const value = selections[key];
+                if (value) {
+                    if (Array.isArray(value) && value.length > 0) {
+                        value.forEach(item => {
                             hasValues = true;
                             const detail = document.createElement('p');
-                            detail.textContent = selections[key];
+                            detail.textContent = item;
                             contentContainer.appendChild(detail);
-                        }
+                        });
+                    } else if (typeof value === 'string' && value.trim() !== '') {
+                        hasValues = true;
+                        const detail = document.createElement('p');
+                        detail.textContent = value;
+                        contentContainer.appendChild(detail);
                     }
-                });
-            }
-    
+                }
+            });
+
             if (hasValues) {
                 const header = document.createElement('h3');
                 header.textContent = category;
@@ -101,12 +101,13 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     }
-    
-    
+
+    // Resets invalid specifications if selection criteria change
     function resetInvalidSpecifications() {
         selections.specifications = null;
     }
 
+    // Applies filters based on selected processor and color
     function applyFilters() {
         const specificationOptions = document.querySelectorAll('.option[data-processor], .option[data-color]');
         let foundVisible = false;
@@ -136,6 +137,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
+    // Updates the total price based on selections
     function updateTotalPrice() {
         let newTotalPrice = 0;
         document.querySelectorAll('.options input:checked').forEach(input => {
@@ -146,26 +148,27 @@ document.addEventListener("DOMContentLoaded", function() {
         });
         totalPriceElement.textContent = `$${newTotalPrice.toFixed(2)}`;
     }
+
+    // Handles changes in selections
     document.addEventListener('change', function(event) {
         const target = event.target;
-        const name = target.name;
         if (target.closest('.options')) {
+            const name = target.name;
             if (target.type === 'radio' || target.type === 'checkbox') {
-                // Reset and update for specifications if processor or color changes
+                // Handle changes in processor or color
                 if (name === 'processor' || name === 'color') {
                     resetInvalidSpecifications();
                     selections[name] = target.nextElementSibling.textContent.trim();
                     applyFilters();
                 } else if (target.type === 'checkbox') {
+                    // Handle checkbox for warranty and accessories
                     const isChecked = target.checked;
                     const value = target.nextElementSibling.textContent.trim();
                     if (isChecked) {
-                        // Add to the selections if checked
                         if (!selections[name].includes(value)) {
                             selections[name].push(value);
                         }
                     } else {
-                        // Remove from the selections if unchecked
                         selections[name] = selections[name].filter(item => item !== value);
                     }
                 } else if (target.type === 'radio') {
@@ -179,25 +182,20 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    
-    
-    nextButton.addEventListener('click', function() {
-        console.log('Next button clicked'); // Debug statement
+    // Event listener for the 'Next' button
+    nextButton.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent default form submission
         if (validateSection(true)) {
-            console.log('Validation passed'); // Debug statement
             if (currentSectionIndex < sections.length - 1) {
                 navigateToSection(currentSectionIndex + 1);
             } else {
-                console.log('Attempting to save to local storage and redirect'); // Debug statement
+                // Save to local storage and redirect on the last section
                 localStorage.setItem('cart', JSON.stringify(selections));
-                console.log('Selections saved:', selections); // Output the saved selections for debugging
-                window.location.href = 'https://neloxis.com/cart'; // Ensure this URL is correct and accessible
+                window.location.href = 'https://neloxis.com/cart';
             }
-        } else {
-            console.log('Validation failed'); // Debug statement
         }
     });
-    
+
     updateProgressBar();
     updateTotalPrice(); // Initial call to set the total price based on default selections
 });
