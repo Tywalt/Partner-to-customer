@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
         processor: null,
         color: null,
         specifications: null,
-        warranty: null,
+        warranty: [],
         accessories: []
     };
 
@@ -27,7 +27,6 @@ document.addEventListener("DOMContentLoaded", function() {
             sections[index].classList.remove('hidden');
             currentSectionIndex = index;
             updateProgressBar();
-            // Update the price considering changes may affect hidden sections
             updateTotalPrice();
         }
     }
@@ -35,7 +34,6 @@ document.addEventListener("DOMContentLoaded", function() {
     function validateSection(applyHighlight = false) {
         const currentSection = sections[currentSectionIndex];
         let allCategoriesValid = true;
-
         currentSection.querySelectorAll('.option-group').forEach(group => {
             const selectedInput = group.querySelector('input:checked');
             if (!selectedInput && applyHighlight) {
@@ -53,29 +51,51 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             }
         });
-
         return allCategoriesValid;
     }
 
     function updateSummary() {
         const summaryElement = document.getElementById('summary-details');
-        summaryElement.innerHTML = '';
-
-        const displayOrder = ['processor', 'color', 'specifications', 'warranty', 'accessories'];
-        displayOrder.forEach(key => {
-            const value = selections[key];
-            if (value) {
-                if (Array.isArray(value)) {
+        summaryElement.innerHTML = '';  // Clear previous content
+    
+        const categories = {
+            'Surface Pro 10 for Business': ['processor', 'color', 'specifications'],
+            'Add-Ons': selections.warranty,
+            'Accessories': selections.accessories
+        };
+    
+        Object.keys(categories).forEach(category => {
+            const keys = categories[category];
+            let hasValues = false;
+            const contentContainer = document.createElement('div');
+    
+            if (Array.isArray(keys)) {  // Multiple keys for Surface Pro 10 for Business
+                keys.forEach(key => {
+                    const value = selections[key];
+                    if (value) {
+                        hasValues = true;
+                        const detail = document.createElement('p');
+                        detail.textContent = value;
+                        contentContainer.appendChild(detail);
+                    }
+                });
+            } else {  // Single key for warranty and accessories
+                const value = selections[keys];
+                if (value && value.length > 0) {
+                    hasValues = true;
                     value.forEach(item => {
-                        const li = document.createElement('li');
-                        li.textContent = item;
-                        summaryElement.appendChild(li);
+                        const detail = document.createElement('p');
+                        detail.textContent = item;
+                        contentContainer.appendChild(detail);
                     });
-                } else {
-                    const li = document.createElement('li');
-                    li.textContent = value;
-                    summaryElement.appendChild(li);
                 }
+            }
+    
+            if (hasValues) {
+                const header = document.createElement('h3');
+                header.textContent = category;
+                summaryElement.appendChild(header);
+                summaryElement.appendChild(contentContainer);
             }
         });
     }
@@ -132,7 +152,14 @@ document.addEventListener("DOMContentLoaded", function() {
                 applyFilters();
                 updateSummary();
             } else if (event.target.type === 'checkbox') {
-                selections[event.target.name] = event.target.checked ? event.target.nextElementSibling.textContent.trim() : null;
+                const name = event.target.name;
+                const isChecked = event.target.checked;
+                const value = event.target.nextElementSibling.textContent.trim();
+                if (isChecked) {
+                    selections[name].push(value);
+                } else {
+                    selections[name] = selections[name].filter(item => item !== value);
+                }
                 updateSummary();
             } else if (event.target.type === 'radio') {
                 selections[event.target.name] = event.target.nextElementSibling.textContent.trim();
@@ -141,6 +168,12 @@ document.addEventListener("DOMContentLoaded", function() {
             validateSection();
             updateTotalPrice(); // Update the total price on change
         }
+    });
+    
+    document.querySelectorAll('.options').forEach(section => {
+        section.addEventListener('change', function() {
+            updateSummary();
+        });
     });
 
     nextButton.addEventListener('click', function() {

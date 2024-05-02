@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Update the shipping info text
     const shippingInfoElement = document.getElementById('shipping-info');
     if (shippingInfoElement) {
-        shippingInfoElement.textContent = `Get it as soon as ${dateString}`;
+        shippingInfoElement.textContent = `Get it as soon as ${dateString}. Free Returns`;
         console.log("Shipping info updated: " + shippingInfoElement.textContent);
     } else {
         console.log("Shipping info element not found");
