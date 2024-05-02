@@ -260,3 +260,20 @@ body, html {
 .option[data-processor] {
     display: none; /* Hide all specification options initially */
 }
+
+
+
+
+.subtotal-divider {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    border-top: 1px solid #ccc; /* Adds a light gray border at the top */
+    padding-top: 10px; /* Adds some spacing above the content inside the divider */
+}
+
+
+#total-price {
+    margin-left: auto; /* Forces it to the far right */
+    white-space: nowrap; /* Prevents breaking into multiple lines */
+}
