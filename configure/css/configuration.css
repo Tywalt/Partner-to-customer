@@ -272,8 +272,24 @@ body, html {
     padding-top: 10px; /* Adds some spacing above the content inside the divider */
 }
 
-
 #total-price {
     margin-left: auto; /* Forces it to the far right */
     white-space: nowrap; /* Prevents breaking into multiple lines */
+}
+
+
+#summary-details {
+    padding-left: 0; /* Remove padding from the left side */
+}
+
+#summary-details h3, #summary-details p {
+    margin-left: 0; /* No margin on the left */
+    padding-left: 0; /* No padding on the left */
+    text-align: left; /* Ensures text is aligned to the left */
+}
+.summary h1 {
+    margin-bottom: 0; /* Reduce or remove bottom margin */
+}
+#summary-details h3:first-child {
+    margin-top: 0; /* Remove top margin for the first header in the summary details */
 }

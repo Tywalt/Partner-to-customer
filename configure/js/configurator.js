@@ -60,35 +60,37 @@ document.addEventListener("DOMContentLoaded", function() {
     
         const categories = {
             'Surface Pro 10 for Business': ['processor', 'color', 'specifications'],
-            'Add-Ons': selections.warranty,
-            'Accessories': selections.accessories
+            'Add-Ons': ['warranty'],
+            'Accessories': ['accessories']
         };
     
         Object.keys(categories).forEach(category => {
-            const keys = categories[category];
             let hasValues = false;
+            const keys = categories[category];
             const contentContainer = document.createElement('div');
+            contentContainer.className = 'summary-category';
     
-            if (Array.isArray(keys)) {  // Multiple keys for Surface Pro 10 for Business
+            if (Array.isArray(keys)) {
                 keys.forEach(key => {
                     const value = selections[key];
                     if (value) {
-                        hasValues = true;
-                        const detail = document.createElement('p');
-                        detail.textContent = value;
-                        contentContainer.appendChild(detail);
+                        if (Array.isArray(value) && value.length > 0) {
+                            // Handle arrays for multiple selections like warranty and accessories
+                            value.forEach(item => {
+                                hasValues = true;
+                                const detail = document.createElement('p');
+                                detail.textContent = item;
+                                contentContainer.appendChild(detail);
+                            });
+                        } else if (typeof value === 'string' && value.trim() !== '') {
+                            // Handle single selections like processor, color, specifications
+                            hasValues = true;
+                            const detail = document.createElement('p');
+                            detail.textContent = selections[key];
+                            contentContainer.appendChild(detail);
+                        }
                     }
                 });
-            } else {  // Single key for warranty and accessories
-                const value = selections[keys];
-                if (value && value.length > 0) {
-                    hasValues = true;
-                    value.forEach(item => {
-                        const detail = document.createElement('p');
-                        detail.textContent = item;
-                        contentContainer.appendChild(detail);
-                    });
-                }
             }
     
             if (hasValues) {
@@ -99,7 +101,8 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     }
-
+    
+    
     function resetInvalidSpecifications() {
         selections.specifications = null;
     }
@@ -143,30 +146,36 @@ document.addEventListener("DOMContentLoaded", function() {
         });
         totalPriceElement.textContent = `$${newTotalPrice.toFixed(2)}`;
     }
-
     document.addEventListener('change', function(event) {
-        if (event.target.closest('.options') && (event.target.type === 'radio' || event.target.type === 'checkbox')) {
-            if (event.target.name === 'processor' || event.target.name === 'color') {
-                resetInvalidSpecifications();
-                selections[event.target.name] = event.target.nextElementSibling.textContent.trim();
-                applyFilters();
-                updateSummary();
-            } else if (event.target.type === 'checkbox') {
-                const name = event.target.name;
-                const isChecked = event.target.checked;
-                const value = event.target.nextElementSibling.textContent.trim();
-                if (isChecked) {
-                    selections[name].push(value);
-                } else {
-                    selections[name] = selections[name].filter(item => item !== value);
+        const target = event.target;
+        const name = target.name;
+        if (target.closest('.options')) {
+            if (target.type === 'radio' || target.type === 'checkbox') {
+                // Reset and update for specifications if processor or color changes
+                if (name === 'processor' || name === 'color') {
+                    resetInvalidSpecifications();
+                    selections[name] = target.nextElementSibling.textContent.trim();
+                    applyFilters();
+                } else if (target.type === 'checkbox') {
+                    const isChecked = target.checked;
+                    const value = target.nextElementSibling.textContent.trim();
+                    if (isChecked) {
+                        // Add to the selections if checked
+                        if (!selections[name].includes(value)) {
+                            selections[name].push(value);
+                        }
+                    } else {
+                        // Remove from the selections if unchecked
+                        selections[name] = selections[name].filter(item => item !== value);
+                    }
+                } else if (target.type === 'radio') {
+                    // Update selection for radio buttons
+                    selections[name] = target.nextElementSibling.textContent.trim();
                 }
-                updateSummary();
-            } else if (event.target.type === 'radio') {
-                selections[event.target.name] = event.target.nextElementSibling.textContent.trim();
-                updateSummary();
+                updateSummary(); // Update the summary with the new selections
+                updateTotalPrice(); // Update the total price on change
+                validateSection(); // Validate the section for any input errors
             }
-            validateSection();
-            updateTotalPrice(); // Update the total price on change
         }
     });
     
