@@ -5,31 +5,39 @@
             padding: 20px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-
-        .cart-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-
-        .cart-header h1 {
-            margin: 0;
-            font-size: 24px;
-        }
-
-        .cart-item {
-            margin-bottom: 10px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .cart-item:last-child {
-            border-bottom: none;
-        }
-
+                /* Basic styling for modern look */
+                .cart-header, .cart-item {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin: 10px;
+                    padding: 10px;
+                    border-bottom: 1px solid #ccc;
+                }
+                .cart-item div {
+                    flex: 1;
+                }
+                .quantity-control, .remove-item {
+                    cursor: pointer;
+                }
+                .subtotal {
+                    font-size: 20px;
+                    font-weight: bold;
+                    margin: 10px;
+                    text-align: right;
+                }
+                .checkout-button {
+                    display: block;
+                    width: 100%;
+                    padding: 10px;
+                    margin: 10px 0;
+                    background-color: #007BFF;
+                    color: white;
+                    text-align: center;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                }
         .empty-cart {
             text-align: center;
             padding: 20px;

@@ -1,59 +1,48 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const cartDisplay = document.getElementById('cart-items');
+    function updateCartDisplay() {
+        const cartItemsContainer = document.getElementById('cart-items');
+        const cartData = JSON.parse(localStorage.getItem('cart') || '{}');
+        cartItemsContainer.innerHTML = ''; // Clear previous entries
 
-    // Debug: Output the raw local storage data for cart to console for inspection
-    console.log('Raw cart data from localStorage:', localStorage.getItem('cart'));
-
-    // Safely parse the local storage data with error handling
-    let cartData;
-    try {
-        cartData = JSON.parse(localStorage.getItem('cart'));
-    } catch (error) {
-        console.error('Error parsing cart data:', error);
-        cartDisplay.innerHTML = '<div class="empty-cart">Failed to load cart data.</div>';
-        return; // Exit the function if parsing fails
-    }
-
-    // Debug: Output the parsed cart data to console
-    console.log('Parsed cart data:', cartData);
-
-    // Check if cartData is not null and has keys
-    if (cartData && Object.keys(cartData).length > 0) {
-        // Clear the existing content
-        cartDisplay.innerHTML = '';
-
-        // Loop through each key in the cartData object
+        let subtotal = 0;
         Object.keys(cartData).forEach(key => {
-            const value = cartData[key];
-            // Check if the value is an array (multiple items)
-            if (Array.isArray(value)) {
-                value.forEach(item => {
-                    const detail = document.createElement('p');
-                    detail.textContent = `${key.toUpperCase()}: ${item}`;
-                    cartDisplay.appendChild(detail);
-                });
-            } else {
-                // Single item
-                const detail = document.createElement('p');
-                detail.textContent = `${key.toUpperCase()}: ${value}`;
-                cartDisplay.appendChild(detail);
-            }
+            const item = cartData[key];
+            const cartItemDiv = document.createElement('div');
+            cartItemDiv.className = 'cart-item';
+            cartItemDiv.innerHTML = `
+                <div>${item.detail} - $${item.price}</div>
+                <div>Qty: <span class="quantity-control" onclick="changeQuantity('${key}', -1)">-</span> ${item.quantity} <span class="quantity-control" onclick="changeQuantity('${key}', 1)">+</span></div>
+                <div><button class="remove-item" onclick="removeItem('${key}')">Remove</button></div>
+            `;
+            cartItemsContainer.appendChild(cartItemDiv);
+            subtotal += item.price * item.quantity;
         });
-    } else {
-        // Display an empty cart message if no data or empty
-        cartDisplay.innerHTML = '<div class="empty-cart">Your cart is empty.</div>';
+
+        document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
     }
 
-    // Event listener for the checkout button
-    const checkoutButton = document.getElementById('checkout-button');
-    if (checkoutButton) {
-        checkoutButton.addEventListener('click', function() {
-            alert('Proceeding to checkout...');
-            // Assuming the checkout page URL is correct and reachable
-            window.location.href = 'https://neloxis.com/checkout';
-        });
-    } else {
-        // Debug: Log if the checkout button is not found
-        console.error('Checkout button not found');
-    }
+    window.changeQuantity = function(key, change) {
+        const cartData = JSON.parse(localStorage.getItem('cart') || '{}');
+        if (cartData[key]) {
+            cartData[key].quantity += change;
+            cartData[key].quantity = Math.max(1, cartData[key].quantity); // Ensure quantity doesn't go below 1
+            localStorage.setItem('cart', JSON.stringify(cartData));
+            updateCartDisplay(); // Refresh the cart display
+        }
+    };
+
+    window.removeItem = function(key) {
+        const cartData = JSON.parse(localStorage.getItem('cart') || '{}');
+        delete cartData[key]; // Remove the item from the cart data
+        localStorage.setItem('cart', JSON.stringify(cartData));
+        updateCartDisplay(); // Refresh the cart display
+    };
+
+    window.proceedToCheckout = function() {
+        alert('Proceeding to checkout...');
+        window.location.href = 'https://neloxis.com/checkout';
+    };
+
+    // Initial call to set up the cart display
+    updateCartDisplay();
 });
