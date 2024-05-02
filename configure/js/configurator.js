@@ -178,23 +178,23 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
     });
-    
-    document.querySelectorAll('.options').forEach(section => {
-        section.addEventListener('change', function() {
-            updateSummary();
-        });
-    });
 
+    
+    
     nextButton.addEventListener('click', function() {
+        console.log('Next button clicked'); // Debug statement
         if (validateSection(true)) {
+            console.log('Validation passed'); // Debug statement
             if (currentSectionIndex < sections.length - 1) {
                 navigateToSection(currentSectionIndex + 1);
             } else {
-                // Save selections to local storage
+                console.log('Attempting to save to local storage and redirect'); // Debug statement
                 localStorage.setItem('cart', JSON.stringify(selections));
-                // Redirect to the cart page
-                window.location.href = 'https://neloxis.com/cart';
+                console.log('Selections saved:', selections); // Output the saved selections for debugging
+                window.location.href = 'https://neloxis.com/cart'; // Ensure this URL is correct and accessible
             }
+        } else {
+            console.log('Validation failed'); // Debug statement
         }
     });
     
