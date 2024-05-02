@@ -191,11 +191,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 navigateToSection(currentSectionIndex + 1);
             } else {
                 // Redirect on the last section
-                window.location.href = 'https://neloxis/cart';
+                window.location.href = 'https://neloxis.com/cart';
             }
         }
     });
-
     updateProgressBar();
     updateTotalPrice(); // Initial call to set the total price based on default selections
 });
