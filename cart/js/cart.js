@@ -5,44 +5,51 @@ document.addEventListener("DOMContentLoaded", function() {
         cartItemsContainer.innerHTML = ''; // Clear previous entries
 
         let subtotal = 0;
-        Object.keys(cartData).forEach(key => {
-            const item = cartData[key];
-            const cartItemDiv = document.createElement('div');
-            cartItemDiv.className = 'cart-item';
-            cartItemDiv.innerHTML = `
-                <div>${item.detail} - $${item.price}</div>
-                <div>Qty: <span class="quantity-control" onclick="changeQuantity('${key}', -1)">-</span> ${item.quantity} <span class="quantity-control" onclick="changeQuantity('${key}', 1)">+</span></div>
-                <div><button class="remove-item" onclick="removeItem('${key}')">Remove</button></div>
-            `;
-            cartItemsContainer.appendChild(cartItemDiv);
-            subtotal += item.price * item.quantity;
+        Object.keys(cartData).forEach(category => {
+            const items = cartData[category];
+            items.forEach(item => {
+                if (item && item.detail && item.price && item.quantity && !isNaN(item.quantity)) {
+                    const cartItemDiv = document.createElement('div');
+                    cartItemDiv.className = 'cart-item';
+                    cartItemDiv.innerHTML = `
+                        <div>${item.detail} - $${item.price.toFixed(2)}</div>
+                        <div>Qty: <span class="quantity-control" onclick="changeQuantity('${category}', '${item.detail}', -1)">-</span> ${item.quantity} <span class="quantity-control" onclick="changeQuantity('${category}', '${item.detail}', 1)">+</span></div>
+                        <div><button class="remove-item" onclick="removeItem('${category}', '${item.detail}')">Remove</button></div>
+                    `;
+                    cartItemsContainer.appendChild(cartItemDiv);
+                    subtotal += item.price * item.quantity;
+                } else {
+                    console.log('Error with item data:', item);
+                }
+            });
         });
 
         document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
     }
 
-    window.changeQuantity = function(key, change) {
+    function changeQuantity(category, detail, change) {
         const cartData = JSON.parse(localStorage.getItem('cart') || '{}');
-        if (cartData[key]) {
-            cartData[key].quantity += change;
-            cartData[key].quantity = Math.max(1, cartData[key].quantity); // Ensure quantity doesn't go below 1
+        const item = cartData[category].find(i => i.detail === detail);
+        if (item && !isNaN(item.quantity)) {
+            item.quantity += change;
+            item.quantity = Math.max(1, item.quantity); // Ensure quantity doesn't go below 1
             localStorage.setItem('cart', JSON.stringify(cartData));
-            updateCartDisplay(); // Refresh the cart display
+            updateCartDisplay();
         }
-    };
+    }
 
-    window.removeItem = function(key) {
+    function removeItem(category, detail) {
         const cartData = JSON.parse(localStorage.getItem('cart') || '{}');
-        delete cartData[key]; // Remove the item from the cart data
-        localStorage.setItem('cart', JSON.stringify(cartData));
-        updateCartDisplay(); // Refresh the cart display
-    };
+        const itemIndex = cartData[category].findIndex(i => i.detail === detail);
+        if (itemIndex !== -1) {
+            cartData[category].splice(itemIndex, 1);
+            if (cartData[category].length === 0) {
+                delete cartData[category]; // Remove the category if no items left
+            }
+            localStorage.setItem('cart', JSON.stringify(cartData));
+            updateCartDisplay();
+        }
+    }
 
-    window.proceedToCheckout = function() {
-        alert('Proceeding to checkout...');
-        window.location.href = 'https://neloxis.com/checkout';
-    };
-
-    // Initial call to set up the cart display
     updateCartDisplay();
 });
