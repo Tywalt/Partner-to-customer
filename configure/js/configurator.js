@@ -5,12 +5,15 @@ document.addEventListener("DOMContentLoaded", function() {
     const totalPriceElement = document.getElementById('total-price');
     let currentSectionIndex = 0;
     let selections = {
-        processor: null,
-        color: null,
-        specifications: null,
-        warranty: [],
-        accessories: []
+        "Surface Pro 10 for Business": {
+            processor: null,
+            color: null,
+            specifications: null
+        },
+        "Add-Ons": [],
+        "Accessories": []
     };
+
 
     // Updates the visual progress bar based on the current section index
     function updateProgressBar() {
