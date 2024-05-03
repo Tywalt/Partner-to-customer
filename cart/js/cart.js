@@ -4,9 +4,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function updateCartDisplay() {
         const cartData = JSON.parse(localStorage.getItem('cart') || '{}');
+        console.log("Cart Data:", cartData); // Debug: Log the loaded cart data
         let subtotal = 0;
 
-        // Clear existing cart items
         cartItemsContainer.innerHTML = '';
 
         if (Object.keys(cartData).length === 0) {
@@ -14,17 +14,15 @@ document.addEventListener("DOMContentLoaded", function() {
         } else {
             Object.keys(cartData).forEach(category => {
                 const categoryHeader = document.createElement('h3');
-                categoryHeader.textContent = category; // Setting category name as header
+                categoryHeader.textContent = category;
                 cartItemsContainer.appendChild(categoryHeader);
 
                 const items = cartData[category];
                 if (typeof items === 'object' && !Array.isArray(items)) {
-                    // Handle structured object for main product details
                     Object.keys(items).forEach(detail => {
                         subtotal += addCartItem(`${detail}: ${items[detail]}`);
                     });
                 } else if (Array.isArray(items)) {
-                    // Handle arrays for add-ons and accessories
                     items.forEach(item => {
                         subtotal += addCartItem(item);
                     });
@@ -36,8 +34,10 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function addCartItem(item) {
-        const priceMatch = item.match(/\$\d+(\.\d{2})?/); // Regex to extract price
-        let price = priceMatch ? parseFloat(priceMatch[0].replace('$', '')) : 0;
+        console.log("Adding item:", item); // Debug: Log each item processed
+        const priceRegex = /\$\d+(\.\d{2})?/; // Regex to extract price
+        const match = item.match(priceRegex);
+        let price = match ? parseFloat(match[0].substring(1)) : 0;
         
         const itemElement = document.createElement('div');
         itemElement.className = 'cart-item';
