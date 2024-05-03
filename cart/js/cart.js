@@ -8,31 +8,33 @@ document.addEventListener("DOMContentLoaded", function() {
 
         cartItemsContainer.innerHTML = '';
 
+        // Check if cart is empty
         if (Object.keys(cartData).length === 0) {
             // Display "Your cart is empty." message
             cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
             // Update subtotal to 0
             subtotalElement.textContent = '$0.00';
-        } else {
-            Object.keys(cartData).forEach(category => {
-                if (!['specifications', 'processor', 'color', 'warranty', 'accessories'].includes(category)) {
-                    const categoryHeader = document.createElement('h3');
-                    categoryHeader.textContent = category;
-                    cartItemsContainer.appendChild(categoryHeader);
-
-                    const items = cartData[category];
-                    if (typeof items === 'object' && !Array.isArray(items)) {
-                        Object.keys(items).forEach(key => {
-                            subtotal += addItem(`${key}: ${items[key]}`);
-                        });
-                    } else if (Array.isArray(items)) {
-                        items.forEach(item => {
-                            subtotal += addItem(item);
-                        });
-                    }
-                }
-            });
+            return; // Exit the function early
         }
+
+        Object.keys(cartData).forEach(category => {
+            if (!['specifications', 'processor', 'color', 'warranty', 'accessories'].includes(category)) {
+                const categoryHeader = document.createElement('h3');
+                categoryHeader.textContent = category;
+                cartItemsContainer.appendChild(categoryHeader);
+
+                const items = cartData[category];
+                if (typeof items === 'object' && !Array.isArray(items)) {
+                    Object.keys(items).forEach(key => {
+                        subtotal += addItem(`${key}: ${items[key]}`);
+                    });
+                } else if (Array.isArray(items)) {
+                    items.forEach(item => {
+                        subtotal += addItem(item);
+                    });
+                }
+            }
+        });
 
         // Update the subtotal display
         subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
