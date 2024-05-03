@@ -5,21 +5,21 @@ document.addEventListener("DOMContentLoaded", function() {
     function updateCartDisplay() {
         const cartData = JSON.parse(localStorage.getItem('cart') || '{}');
         console.log("Retrieved cart data:", cartData);
-
+    
         let subtotal = 0;
         cartItemsContainer.innerHTML = '';
-
+    
         if (Object.keys(cartData).length === 0) {
             cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
             subtotalElement.textContent = '$0.00';
             return;
         }
-
+    
         Object.keys(cartData).forEach(category => {
             const categoryHeader = document.createElement('h3');
             categoryHeader.textContent = category;
             cartItemsContainer.appendChild(categoryHeader);
-
+    
             const items = cartData[category];
             if (typeof items === 'object' && !Array.isArray(items)) {
                 Object.keys(items).forEach(key => {
@@ -36,9 +36,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 });
             }
         });
-
+    
         subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
     }
+    
 
     function addItem(item) {
         const priceRegex = /\$\d+(\.\d{2})?/;

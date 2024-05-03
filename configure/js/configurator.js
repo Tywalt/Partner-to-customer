@@ -203,15 +203,12 @@ nextButton.addEventListener('click', function(event) {
         if (currentSectionIndex < sections.length - 1) {
             navigateToSection(currentSectionIndex + 1);
         } else {
-            // Correctly format the selections object to be saved in localStorage
             const cartSelections = {
                 "Surface Pro 10 for Business": selections["Surface Pro 10 for Business"],
                 "Add-Ons": selections["Add-Ons"],
                 "Accessories": selections["Accessories"]
             };
-            // Save to local storage
             localStorage.setItem('cart', JSON.stringify(cartSelections));
-            // Redirect to the cart page
             window.location.href = '/cart'; // Adjust this URL to your actual cart page
         }
     }
