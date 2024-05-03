@@ -168,30 +168,33 @@ function updateSummary() {
         const target = event.target;
         if (target.closest('.options')) {
             const name = target.name;
+            const optionElement = target.closest('.option');
+    
             if (target.type === 'radio' || target.type === 'checkbox') {
-                // Handle changes in processor or color
-                if (name === 'processor' || name === 'color') {
-                    resetInvalidSpecifications();
-                    selections[name] = target.nextElementSibling.textContent.trim();
-                    applyFilters();
-                } else if (target.type === 'checkbox') {
-                    // Handle checkbox for warranty and accessories
-                    const isChecked = target.checked;
-                    const value = target.nextElementSibling.textContent.trim();
-                    if (isChecked) {
-                        if (!selections[name].includes(value)) {
-                            selections[name].push(value);
+                if (name === 'specifications') {
+                    // Capture processor and color from data attributes if available
+                    const processor = optionElement.dataset.processor;
+                    const color = optionElement.dataset.color;
+                    selections["Surface Pro 10 for Business"].processor = processor;
+                    selections["Surface Pro 10 for Business"].color = color;
+                    selections["Surface Pro 10 for Business"][name] = target.value;
+                } else {
+                    // For other selections like Add-Ons and Accessories
+                    if (target.type === 'checkbox') {
+                        if (target.checked) {
+                            selections[name].push(target.value);
+                        } else {
+                            const index = selections[name].indexOf(target.value);
+                            if (index > -1) {
+                                selections[name].splice(index, 1);
+                            }
                         }
                     } else {
-                        selections[name] = selections[name].filter(item => item !== value);
+                        selections[name] = target.value;
                     }
-                } else if (target.type === 'radio') {
-                    // Update selection for radio buttons
-                    selections[name] = target.nextElementSibling.textContent.trim();
                 }
-                updateSummary(); // Update the summary with the new selections
-                updateTotalPrice(); // Update the total price on change
-                validateSection(); // Validate the section for any input errors
+                updateSummary();
+                updateTotalPrice();
             }
         }
     });
