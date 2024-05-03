@@ -1,56 +1,71 @@
-class Cart {
-    constructor() {
-        this.cartItemsContainer = document.getElementById('cart-items');
-        this.subtotalElement = document.getElementById('subtotal');
-        this.selections = JSON.parse(localStorage.getItem('cart') || '{}');
-        this.initCart();
-    }
+document.addEventListener("DOMContentLoaded", function() {
+    const cartItemsContainer = document.getElementById('cart-items');
+    const subtotalElement = document.getElementById('subtotal');
 
-    initCart() {
-        document.addEventListener("DOMContentLoaded", () => this.updateCartDisplay());
-    }
+    // Retrieve and display cart data on page load
+    let selections = JSON.parse(localStorage.getItem('cart') || '{}');
+    updateCartDisplay();
 
-    async updateCartDisplay() {
-        this.cartItemsContainer.innerHTML = ''; // Clear existing items
+    // Function to update the display of items in the cart
+    function updateCartDisplay() {
+        cartItemsContainer.innerHTML = ''; // Clear existing items
         let subtotal = 0;
 
-        Object.entries(this.selections).forEach(([category, items]) => {
+        Object.keys(selections).forEach(category => {
             const categoryHeader = document.createElement('h3');
             categoryHeader.textContent = category;
-            this.cartItemsContainer.appendChild(categoryHeader);
+            cartItemsContainer.appendChild(categoryHeader);
 
-            items.forEach(item => {
+            selections[category].forEach(item => {
                 const itemDetail = document.createElement('div');
                 itemDetail.className = 'cart-item';
-                itemDetail.innerHTML = `
-                    ${item.name}: ${item.details.name} - $${item.details.price.toFixed(2)} x 
-                    <input type="number" min="1" value="${item.quantity}" onchange="cart.changeQuantity('${category}', '${item.name}', this.value)" />
-                    <button onclick="cart.removeFromCart('${category}', '${item.name}')">Remove</button>
-                `;
 
-                this.cartItemsContainer.appendChild(itemDetail);
+                // Item description
+                const description = document.createTextNode(`${item.name}: ${item.details.name} - $${item.details.price.toFixed(2)} x `);
+
+                // Quantity input
+                const quantityInput = document.createElement('input');
+                quantityInput.type = 'number';
+                quantityInput.min = '1';
+                quantityInput.value = item.quantity;
+                quantityInput.addEventListener('change', () => {
+                    changeQuantity(category, item.name, parseInt(quantityInput.value, 10));
+                });
+
+                // Remove button
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'Remove';
+                removeButton.addEventListener('click', () => {
+                    removeFromCart(category, item.name);
+                });
+
+                // Append elements to item detail container
+                itemDetail.appendChild(description);
+                itemDetail.appendChild(quantityInput);
+                itemDetail.appendChild(removeButton);
+                cartItemsContainer.appendChild(itemDetail);
+
                 subtotal += item.details.price * item.quantity;
             });
         });
 
-        this.subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
+        subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
     }
 
-    changeQuantity(category, itemName, newQuantity) {
-        const itemIndex = this.selections[category].findIndex(item => item.name === itemName);
+    // Function to change quantity in the cart
+    function changeQuantity(category, itemName, newQuantity) {
+        const itemIndex = selections[category].findIndex(item => item.name === itemName);
         if (itemIndex !== -1) {
-            this.selections[category][itemIndex].quantity = parseInt(newQuantity, 10);
-            localStorage.setItem('cart', JSON.stringify(this.selections));
-            this.updateCartDisplay(); // Redraw the cart
+            selections[category][itemIndex].quantity = newQuantity;
+            localStorage.setItem('cart', JSON.stringify(selections));
+            updateCartDisplay(); // Redraw the cart
         }
     }
 
-    removeFromCart(category, itemName) {
-        this.selections[category] = this.selections[category].filter(item => item.name !== itemName);
-        localStorage.setItem('cart', JSON.stringify(this.selections));
-        this.updateCartDisplay(); // Redraw the cart
+    // Function to remove an item from the cart
+    function removeFromCart(category, itemName) {
+        selections[category] = selections[category].filter(item => item.name !== itemName);
+        localStorage.setItem('cart', JSON.stringify(selections));
+        updateCartDisplay(); // Redraw the cart
     }
-}
-
-// Instantiate the Cart object
-const cart = new Cart();
+});
