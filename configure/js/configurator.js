@@ -197,12 +197,14 @@ function updateSummary() {
         }
     });
 // Event listener for the 'Next' button
+// Event listener for the 'Next' button
 nextButton.addEventListener('click', function(event) {
     event.preventDefault(); // Prevent default form submission
     if (validateSection(true)) {
         if (currentSectionIndex < sections.length - 1) {
             navigateToSection(currentSectionIndex + 1);
         } else {
+            // This is the final section, process the cart data
             const cartSelections = {
                 "Surface Pro 10 for Business": selections["Surface Pro 10 for Business"],
                 "Add-Ons": selections["Add-Ons"],
@@ -213,6 +215,8 @@ nextButton.addEventListener('click', function(event) {
         }
     }
 });
+
+
 console.log(JSON.stringify(cartSelections));  // Check what is being saved
 localStorage.setItem('cart', JSON.stringify(cartSelections));
 window.location.href = '/cart';
