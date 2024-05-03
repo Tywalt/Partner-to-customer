@@ -16,14 +16,19 @@ document.addEventListener("DOMContentLoaded", function() {
             cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
         } else {
             // Iterate through each category in the cart data
-            Object.keys(cartData).forEach(key => {
-                const items = cartData[key];
+            Object.keys(cartData).forEach(category => {
+                // Create a header for the category
+                const categoryHeader = document.createElement('h3');
+                categoryHeader.textContent = category;
+                cartItemsContainer.appendChild(categoryHeader);
+
+                const items = cartData[category];
                 if (Array.isArray(items)) {
                     items.forEach(item => {
-                        subtotal += addCartItem(key, item);
+                        subtotal += addCartItem(item);
                     });
                 } else if (items) {
-                    subtotal += addCartItem(key, items);
+                    subtotal += addCartItem(items);
                 }
             });
         }
@@ -33,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Function to add individual cart items to the HTML
-    function addCartItem(category, item) {
+    function addCartItem(item) {
         const priceRegex = /\$\d+\.?\d*/; // Regex to extract price
         const match = item.match(priceRegex); // Find price in the item string
         let price = match ? parseFloat(match[0].substring(1)) : 0;
@@ -41,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function() {
         // Create a new div element for the cart item
         const itemElement = document.createElement('div');
         itemElement.className = 'cart-item';
-        itemElement.textContent = `${category}: ${item}`;
+        itemElement.textContent = item;
 
         // Append the new div to the cart items container
         cartItemsContainer.appendChild(itemElement);
