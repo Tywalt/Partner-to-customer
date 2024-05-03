@@ -61,19 +61,38 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Updates the summary of selected items
-    function updateSummary() {
-        const summaryElement = document.getElementById('summary-details');
-        summaryElement.innerHTML = ''; // Clear previous content
+// Updates the summary of selected items
+function updateSummary() {
+    const summaryElement = document.getElementById('summary-details');
+    summaryElement.innerHTML = ''; // Clear previous content
 
-        const categories = {
-            'Surface Pro 10 for Business': ['processor', 'color', 'specifications'],
-            'Add-Ons': ['warranty'],
-            'Accessories': ['accessories']
-        };
+    const categories = {
+        'Surface Pro 10 for Business': ['processor', 'color', 'specifications'],
+        'Add-Ons': ['warranty'],
+        'Accessories': ['accessories']
+    };
 
-        Object.keys(categories).forEach(category => {
-            let hasValues = false;
-            const keys = categories[category];
+    Object.keys(categories).forEach(category => {
+        const keys = categories[category];
+        let hasValues = false; // Flag to check if there are any values for this category
+        keys.forEach(key => {
+            const value = selections[key];
+            if (value) {
+                if (Array.isArray(value) && value.length > 0) {
+                    hasValues = true; // There are values for this category
+                } else if (typeof value === 'string' && value.trim() !== '') {
+                    hasValues = true; // There are values for this category
+                }
+            }
+        });
+
+        if (hasValues) {
+            // Add header only if there are values for this category
+            const header = document.createElement('h3');
+            header.textContent = category;
+            summaryElement.appendChild(header);
+            
+            // Add content only if there are values for this category
             const contentContainer = document.createElement('div');
             contentContainer.className = 'summary-category';
 
@@ -82,13 +101,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 if (value) {
                     if (Array.isArray(value) && value.length > 0) {
                         value.forEach(item => {
-                            hasValues = true;
                             const detail = document.createElement('p');
                             detail.textContent = item;
                             contentContainer.appendChild(detail);
                         });
                     } else if (typeof value === 'string' && value.trim() !== '') {
-                        hasValues = true;
                         const detail = document.createElement('p');
                         detail.textContent = value;
                         contentContainer.appendChild(detail);
@@ -96,15 +113,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             });
 
-            if (hasValues) {
-                const header = document.createElement('h3');
-                header.textContent = category;
-                summaryElement.appendChild(header);
-                summaryElement.appendChild(contentContainer);
-            }
-        });
-    }
-
+            summaryElement.appendChild(contentContainer);
+        }
+    });
+}
     // Resets invalid specifications if selection criteria change
     function resetInvalidSpecifications() {
         selections.specifications = null;

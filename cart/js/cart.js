@@ -16,22 +16,25 @@ document.addEventListener("DOMContentLoaded", function() {
         } else {
             // Iterate through each category in the cart data
             Object.keys(cartData).forEach(category => {
-                // Create a header for each category
-                const categoryHeader = document.createElement('h3');
-                categoryHeader.textContent = category; // Setting category name as header
-                cartItemsContainer.appendChild(categoryHeader);
+                // Exclude unwanted categories
+                if (!['specifications', 'processor', 'color', 'warranty', 'accessories'].includes(category)) {
+                    // Create a header for each category
+                    const categoryHeader = document.createElement('h3');
+                    categoryHeader.textContent = category; // Setting category name as header
+                    cartItemsContainer.appendChild(categoryHeader);
 
-                const items = cartData[category];
-                if (typeof items === 'object' && !Array.isArray(items)) {
-                    // If the category is an object, process each key as a detail item
-                    Object.keys(items).forEach(key => {
-                        subtotal += addItem(`${key}: ${items[key]}`);
-                    });
-                } else if (Array.isArray(items)) {
-                    // If the category is an array, process each item normally
-                    items.forEach(item => {
-                        subtotal += addItem(item);
-                    });
+                    const items = cartData[category];
+                    if (typeof items === 'object' && !Array.isArray(items)) {
+                        // If the category is an object, process each key as a detail item
+                        Object.keys(items).forEach(key => {
+                            subtotal += addItem(`${key}: ${items[key]}`);
+                        });
+                    } else if (Array.isArray(items)) {
+                        // If the category is an array, process each item normally
+                        items.forEach(item => {
+                            subtotal += addItem(item);
+                        });
+                    }
                 }
             });
         }
