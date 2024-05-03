@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
         "Surface Pro 10 for Business": {
             processor: null,
             color: null,
+            specifications: null,
         },
         "Add-Ons": [],
         "Accessories": []
