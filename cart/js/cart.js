@@ -1,59 +1,54 @@
 document.addEventListener("DOMContentLoaded", function() {
+    const cartItemsContainer = document.getElementById('cart-items');
+    const subtotalElement = document.getElementById('subtotal');
+
+    // Function to update the cart display based on stored data
     function updateCartDisplay() {
-        const cartItemsContainer = document.getElementById('cart-items');
+        // Retrieve the cart data from localStorage
         const cartData = JSON.parse(localStorage.getItem('cart') || '{}');
         let subtotal = 0;
 
-        // Ensure cartData.details exists and iterate over each item
-        if (cartData.details && cartData.details.length > 0) {
-            cartData.details.forEach(item => {
-                if (item && item.selection && item.price) {
-                    const cartItemDiv = document.createElement('div');
-                    cartItemDiv.className = 'cart-item';
-                    cartItemDiv.innerHTML = `
-                        <div>${item.category}: ${item.selection} - $${parseFloat(item.price).toFixed(2)}</div>
-                        <div>Qty: <span class="quantity-control" onclick="changeQuantity('${item.category}', '${item.selection}', -1)">-</span> 1 <span class="quantity-control" onclick="changeQuantity('${item.category}', '${item.selection}', 1)">+</span></div>
-                        <div><button class="remove-item" onclick="removeItem('${item.category}', '${item.selection}')">Remove</button></div>
-                    `;
-                    cartItemsContainer.appendChild(cartItemDiv);
-                    subtotal += item.price;
+        // Clear existing cart items
+        cartItemsContainer.innerHTML = '';
+
+        // Check if there is any data to display
+        if (Object.keys(cartData).length === 0) {
+            cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
+        } else {
+            // Iterate through each category in the cart data
+            Object.keys(cartData).forEach(key => {
+                const items = cartData[key];
+                if (Array.isArray(items)) {
+                    items.forEach(item => {
+                        subtotal += addCartItem(key, item);
+                    });
+                } else if (items) {
+                    subtotal += addCartItem(key, items);
                 }
             });
-        } else {
-            cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
         }
 
-        const subtotalDisplay = document.getElementById('subtotal');
-        subtotalDisplay.textContent = `$${subtotal.toFixed(2)}`;
+        // Update the subtotal display
+        subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
     }
 
-    function changeQuantity(category, detail, change) {
-        const cartData = JSON.parse(localStorage.getItem('cart') || '{}');
-        const categoryItems = cartData.details;
-        const itemIndex = categoryItems.findIndex(item => item.selection === detail && item.category === category);
-        
-        if (itemIndex !== -1) {
-            categoryItems[itemIndex].quantity = (categoryItems[itemIndex].quantity || 1) + change;
-            categoryItems[itemIndex].quantity = Math.max(1, categoryItems[itemIndex].quantity); // Ensure quantity doesn't drop below 1
-            localStorage.setItem('cart', JSON.stringify(cartData));
-            updateCartDisplay();
-        }
+    // Function to add individual cart items to the HTML
+    function addCartItem(category, item) {
+        const priceRegex = /\$\d+\.?\d*/; // Regex to extract price
+        const match = item.match(priceRegex); // Find price in the item string
+        let price = match ? parseFloat(match[0].substring(1)) : 0;
+
+        // Create a new div element for the cart item
+        const itemElement = document.createElement('div');
+        itemElement.className = 'cart-item';
+        itemElement.textContent = `${category}: ${item}`;
+
+        // Append the new div to the cart items container
+        cartItemsContainer.appendChild(itemElement);
+
+        return price; // Return the price for subtotal calculation
     }
 
-    function removeItem(category, detail) {
-        const cartData = JSON.parse(localStorage.getItem('cart') || '{}');
-        const categoryItems = cartData.details;
-        const itemIndex = categoryItems.findIndex(item => item.selection === detail && item.category === category);
-        
-        if (itemIndex !== -1) {
-            categoryItems.splice(itemIndex, 1);
-            if (categoryItems.length === 0) {
-                delete cartData.details; // Remove the details if no items are left
-            }
-            localStorage.setItem('cart', JSON.stringify(cartData));
-            updateCartDisplay();
-        }
-    }
-
+    // Initial call to update cart display on page load
     updateCartDisplay();
 });
