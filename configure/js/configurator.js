@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", function() {
         "Surface Pro 10 for Business": {
             processor: null,
             color: null,
-            specifications: null
         },
         "Add-Ons": [],
         "Accessories": []
@@ -196,20 +195,25 @@ function updateSummary() {
             }
         }
     });
-
-    // Event listener for the 'Next' button
-    nextButton.addEventListener('click', function(event) {
-        event.preventDefault(); // Prevent default form submission
-        if (validateSection(true)) {
-            if (currentSectionIndex < sections.length - 1) {
-                navigateToSection(currentSectionIndex + 1);
-            } else {
-                // Save to local storage and redirect on the last section
-                localStorage.setItem('cart', JSON.stringify(selections));
-                window.location.href = '/cart';
-            }
+// Event listener for the 'Next' button
+nextButton.addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent default form submission
+    if (validateSection(true)) {
+        if (currentSectionIndex < sections.length - 1) {
+            navigateToSection(currentSectionIndex + 1);
+        } else {
+            // Create a new object to store only the necessary selections
+            const cartSelections = {
+                "Surface Pro 10 for Business": selections["Surface Pro 10 for Business"],
+                "Add-Ons": selections["Add-Ons"],
+                "Accessories": selections["Accessories"]
+            };
+            // Save to local storage and redirect on the last section
+            localStorage.setItem('cart', JSON.stringify(cartSelections));
+            window.location.href = '/cart';
         }
-    });
+    }
+});
 
     updateProgressBar();
     updateTotalPrice(); // Initial call to set the total price based on default selections
