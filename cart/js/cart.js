@@ -4,39 +4,39 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function updateCartDisplay() {
         const cartData = JSON.parse(localStorage.getItem('cart') || '{}');
-        let subtotal = 0;
+        console.log("Retrieved cart data:", cartData);
 
+        let subtotal = 0;
         cartItemsContainer.innerHTML = '';
 
-        // Check if cart is empty
         if (Object.keys(cartData).length === 0) {
-            // Display "Your cart is empty." message
             cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
-            // Update subtotal to 0
             subtotalElement.textContent = '$0.00';
-            return; // Exit the function early
+            return;
         }
 
         Object.keys(cartData).forEach(category => {
-            if (!['specifications', 'processor', 'color', 'warranty', 'accessories'].includes(category)) {
-                const categoryHeader = document.createElement('h3');
-                categoryHeader.textContent = category;
-                cartItemsContainer.appendChild(categoryHeader);
+            const categoryHeader = document.createElement('h3');
+            categoryHeader.textContent = category;
+            cartItemsContainer.appendChild(categoryHeader);
 
-                const items = cartData[category];
-                if (typeof items === 'object' && !Array.isArray(items)) {
-                    Object.keys(items).forEach(key => {
-                        subtotal += addItem(`${key}: ${items[key]}`);
-                    });
-                } else if (Array.isArray(items)) {
-                    items.forEach(item => {
-                        subtotal += addItem(item);
-                    });
-                }
+            const items = cartData[category];
+            if (typeof items === 'object' && !Array.isArray(items)) {
+                Object.keys(items).forEach(key => {
+                    const itemValue = items[key];
+                    if (itemValue) {
+                        subtotal += addItem(`${key}: ${itemValue}`);
+                    } else {
+                        addItem(`${key}: Not specified`); // Handling undefined or null values
+                    }
+                });
+            } else if (Array.isArray(items)) {
+                items.forEach(item => {
+                    subtotal += addItem(item);
+                });
             }
         });
 
-        // Update the subtotal display
         subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
     }
 
@@ -53,6 +53,5 @@ document.addEventListener("DOMContentLoaded", function() {
         return price;
     }
 
-    // Initial call to update cart display
     updateCartDisplay();
 });

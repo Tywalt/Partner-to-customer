@@ -202,18 +202,22 @@ nextButton.addEventListener('click', function(event) {
         if (currentSectionIndex < sections.length - 1) {
             navigateToSection(currentSectionIndex + 1);
         } else {
-            // Create a new object to store only the necessary selections
+            // Correctly format the selections object to be saved in localStorage
             const cartSelections = {
                 "Surface Pro 10 for Business": selections["Surface Pro 10 for Business"],
                 "Add-Ons": selections["Add-Ons"],
                 "Accessories": selections["Accessories"]
             };
-            // Save to local storage and redirect on the last section
+            // Save to local storage
             localStorage.setItem('cart', JSON.stringify(cartSelections));
-            window.location.href = '/cart';
+            // Redirect to the cart page
+            window.location.href = '/cart.html'; // Adjust this URL to your actual cart page
         }
     }
 });
+console.log(JSON.stringify(cartSelections));  // Check what is being saved
+localStorage.setItem('cart', JSON.stringify(cartSelections));
+window.location.href = '/cart';
 
     updateProgressBar();
     updateTotalPrice(); // Initial call to set the total price based on default selections
