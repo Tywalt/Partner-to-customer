@@ -211,7 +211,7 @@ nextButton.addEventListener('click', function(event) {
             // Save to local storage
             localStorage.setItem('cart', JSON.stringify(cartSelections));
             // Redirect to the cart page
-            window.location.href = '/cart.html'; // Adjust this URL to your actual cart page
+            window.location.href = '/cart'; // Adjust this URL to your actual cart page
         }
     }
 });
