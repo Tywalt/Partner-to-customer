@@ -2337,10 +2337,6 @@
 									<!--end::Aside mobile toggle-->
 								</div>
 								<!--end::Toolbar wrapper-->
-							</div>
-							<!--end::Wrapper-->
-						</div>
-						<!--end::Container-->
 					</div>
 					<!--end::Header-->
 					<!--begin::Toolbar-->
@@ -2359,16 +2355,92 @@
 								<!--begin::Wrapper-->
 								<div class="me-4">
 									<!--begin::Menu-->
-									<a href="/microsoft/full-M365-catalog" class="btn btn-custom btn-active-white btn-flex btn-color-white btn-active-color-white" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+									<a href="#" class="btn btn-custom btn-active-white btn-flex btn-color-white btn-active-color-white" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
 									<i class="ki-duotone ki-filter fs-5 me-1">
 										<span class="path1"></span>
 										<span class="path2"></span>
-									</i>Full Microsoft 365 Catalog</a>
+									</i>Filter</a>
+									<!--begin::Menu 1-->
+									<div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true" id="kt_menu_660638b282116">
+										<!--begin::Header-->
+										<div class="px-7 py-5">
+											<div class="fs-5 text-gray-900 fw-bold">Filter Options</div>
+										</div>
+										<!--end::Header-->
+										<!--begin::Menu separator-->
+										<div class="separator border-gray-200"></div>
+										<!--end::Menu separator-->
+										<!--begin::Form-->
+										<div class="px-7 py-5">
+											<!--begin::Input group-->
+											<div class="mb-10">
+												<!--begin::Label-->
+												<label class="form-label fw-semibold">Status:</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<div>
+													<select class="form-select form-select-solid" multiple="multiple" data-kt-select2="true" data-close-on-select="false" data-placeholder="Select option" data-dropdown-parent="#kt_menu_660638b282116" data-allow-clear="true">
+														<option></option>
+														<option value="1">Approved</option>
+														<option value="2">Pending</option>
+														<option value="2">In Process</option>
+														<option value="2">Rejected</option>
+													</select>
+												</div>
+												<!--end::Input-->
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="mb-10">
+												<!--begin::Label-->
+												<label class="form-label fw-semibold">Member Type:</label>
+												<!--end::Label-->
+												<!--begin::Options-->
+												<div class="d-flex">
+													<!--begin::Options-->
+													<label class="form-check form-check-sm form-check-custom form-check-solid me-5">
+														<input class="form-check-input" type="checkbox" value="1" />
+														<span class="form-check-label">Author</span>
+													</label>
+													<!--end::Options-->
+													<!--begin::Options-->
+													<label class="form-check form-check-sm form-check-custom form-check-solid">
+														<input class="form-check-input" type="checkbox" value="2" checked="checked" />
+														<span class="form-check-label">Customer</span>
+													</label>
+													<!--end::Options-->
+												</div>
+												<!--end::Options-->
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="mb-10">
+												<!--begin::Label-->
+												<label class="form-label fw-semibold">Notifications:</label>
+												<!--end::Label-->
+												<!--begin::Switch-->
+												<div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
+													<input class="form-check-input" type="checkbox" value="" name="notifications" checked="checked" />
+													<label class="form-check-label">Enabled</label>
+												</div>
+												<!--end::Switch-->
+											</div>
+											<!--end::Input group-->
+											<!--begin::Actions-->
+											<div class="d-flex justify-content-end">
+												<button type="reset" class="btn btn-sm btn-light btn-active-light-primary me-2" data-kt-menu-dismiss="true">Reset</button>
+												<button type="submit" class="btn btn-sm btn-primary" data-kt-menu-dismiss="true">Apply</button>
+											</div>
+											<!--end::Actions-->
+										</div>
+										<!--end::Form-->
+									</div>
+									<!--end::Menu 1-->
 									<!--end::Menu-->
 								</div>
 								<!--end::Wrapper-->
 								<!--begin::Button-->
-								<a href="/microsoft/m365-for-enterprise" data-bs-theme="light" class="btn bg-body btn-active-color-primary" id="kt_toolbar_primary_button">Enterprise</a>
+								<a href="#" data-bs-theme="light" class="btn bg-body btn-active-color-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_create_app" id="kt_toolbar_primary_button">Create</a>
 								<!--end::Button-->
 							</div>
 							<!--end::Actions-->
@@ -2381,10 +2453,330 @@
 						<!--begin::Post-->
 						<div class="content flex-row-fluid" id="kt_content">
 							<!--begin::Pricing card-->
-							<script async src="https://js.stripe.com/v3/pricing-table.js"></script>
-							<stripe-pricing-table pricing-table-id="prctbl_1PDDE7I9dOPw1diFQzoC7bMx"
-							publishable-key="pk_live_51P9UWVI9dOPw1diFpg8Blm7dTQ9I3rKlOiBmdD9siYldbpl4uMkg7tGNiRNWuUb5KOHQOxCCCfC3q2BuSoRNtZmH00vT4FQenI">
-							</stripe-pricing-table>
+							<div class="card" id="kt_pricing">
+								<!--begin::Card body-->
+								<div class="card-body p-lg-17">
+									<!--begin::Plans-->
+									<div class="d-flex flex-column">
+										<!--begin::Heading-->
+										<div class="mb-13 text-center">
+											<h1 class="fs-2hx fw-bold mb-5">Find the best Microsoft 365 plan for your business</h1>
+											<div class="text-gray-600 fw-semibold fs-5">If you need more info about our pricing, please check 
+											<a href="#" class="link-primary fw-bold">Pricing Guidelines</a>.</div>
+										</div>
+										<!--end::Heading-->
+										<!--begin::Nav group-->
+										<div class="nav-group nav-group-outline mx-auto mb-15" data-kt-buttons="true">
+											<button class="btn btn-color-gray-600 btn-active btn-active-secondary px-6 py-3 me-2 active" data-kt-plan="month">Monthly</button>
+											<button class="btn btn-color-gray-600 btn-active btn-active-secondary px-6 py-3" data-kt-plan="annual">Annual</button>
+										</div>
+										<!--end::Nav group-->
+										<!--begin::Row-->
+										<div class="row g-10">
+											<!--begin::Col-->
+											<div class="col-xl-4">
+												<div class="d-flex h-100 align-items-center">
+													<!--begin::Option-->
+													<div class="w-100 d-flex flex-column flex-center rounded-3 bg-light bg-opacity-75 py-15 px-10">
+														<!--begin::Heading-->
+														<div class="mb-7 text-center">
+															<!--begin::Title-->
+															<h1 class="text-gray-900 mb-5 fw-bolder">Microsoft 365 Business Basic</h1>
+															<!--end::Title-->
+															<!--begin::Description-->
+															<div class="text-gray-600 fw-semibold mb-5">Optimal for startup teams
+															<br />(Annual subscription–auto renews)</div>
+															<!--end::Description-->
+															<!--begin::Price-->
+															<div class="text-center">
+																<span class="mb-2 text-primary">$</span>
+																<span class="fs-3x fw-bold text-primary" data-kt-plan-price-month="6.00" data-kt-plan-price-annual="72.00">6.00</span>
+																<span class="fs-7 fw-semibold opacity-50">/ 
+																<span data-kt-element="period">user/month</span></span>
+															</div>
+															<!--end::Price-->
+														</div>
+														<!--end::Heading-->
+														<!--begin::Features-->
+														<div class="w-100 mb-10">
+															<!--begin::Item-->
+															<div class="d-flex align-items-center mb-5">
+																<span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Web and Mobile Versions of Office Apps</span>
+																<i class="ki-duotone ki-check-circle fs-1 text-success">
+																	<span class="path1"></span>
+																	<span class="path2"></span>
+																</i>
+															</div>
+															<!--end::Item-->
+															<!--begin::Item-->
+															<div class="d-flex align-items-center mb-5">
+																<span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Email and Calendaring</span>
+																<i class="ki-duotone ki-check-circle fs-1 text-success">
+																	<span class="path1"></span>
+																	<span class="path2"></span>
+																</i>
+															</div>
+															<!--end::Item-->
+															<!--begin::Item-->
+															<div class="d-flex align-items-center mb-5">
+																<span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Team Collaboration</span>
+																<i class="ki-duotone ki-check-circle fs-1 text-success">
+																	<span class="path1"></span>
+																	<span class="path2"></span>
+																</i>
+															</div>
+															<!--end::Item-->
+															<!--begin::Item-->
+															<div class="d-flex align-items-center mb-5">
+																<span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">File Storage</span>
+																<i class="ki-duotone ki-check-circle fs-1 text-success">
+																	<span class="path1"></span>
+																	<span class="path2"></span>
+																</i>
+															</div>
+															<!--end::Item-->
+															<!--begin::Item-->
+															<div class="d-flex align-items-center mb-5">
+																<span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Web-based Management</span>
+																<i class="ki-duotone ki-check-circle fs-1 text-success">
+																	<span class="path1"></span>
+																	<span class="path2"></span>
+																</i>
+															</div>
+															<!--end::Item-->
+															<!--begin::Item-->
+															<div class="d-flex align-items-center mb-5">
+																<span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Security and Compliance</span>
+																<i class="ki-duotone ki-check-circle fs-1 text-success">
+																	<span class="path1"></span>
+																	<span class="path2"></span>
+																</i>
+															</div>
+															<!--end::Item-->
+															<!--begin::Item-->
+															<div class="d-flex align-items-center">
+																<span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Support and Deployment</span>
+																<i class="ki-duotone ki-check-circle fs-1 text-success">
+																	<span class="path1"></span>
+																	<span class="path2"></span>
+																</i>
+															</div>
+															<!--end::Item-->
+														</div>
+														<!--end::Features-->
+														<!--begin::Select-->
+														<a href="#" class="btn btn-sm btn-primary">Select</a>
+														<!--end::Select-->
+													</div>
+													<!--end::Option-->
+												</div>
+											</div>
+											<!--end::Col-->
+											<!--begin::Col-->
+											<div class="col-xl-4">
+												<div class="d-flex h-100 align-items-center">
+													<!--begin::Option-->
+													<div class="w-100 d-flex flex-column flex-center rounded-3 bg-light bg-opacity-75 py-20 px-10">
+														<!--begin::Heading-->
+														<div class="mb-7 text-center">
+															<!--begin::Title-->
+															<h1 class="text-gray-900 mb-5 fw-bolder">Microsoft 365 Business Standard</h1>
+															<!--end::Title-->
+															<!--begin::Description-->
+															<div class="text-gray-600 fw-semibold mb-5">Optimal for Business Growth
+															<br />(Annual subscription–auto renews)</div>
+															<!--end::Description-->
+															<!--begin::Price-->
+															<div class="text-center">
+																<span class="mb-2 text-primary">$</span>
+																<span class="fs-3x fw-bold text-primary" data-kt-plan-price-month="12.50" data-kt-plan-price-annual="150.00">12.50</span>
+																<span class="fs-7 fw-semibold opacity-50">/ 
+																<span data-kt-element="period">user/month</span></span>
+															</div>
+															<!--end::Price-->
+														</div>
+														<!--end::Heading-->
+														<!--begin::Features-->
+														<div class="w-100 mb-10">
+															<!--begin::Item-->
+															<div class="d-flex align-items-center mb-5">
+																<span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Desktop Versions of Office Apps</span>
+																<i class="ki-duotone ki-check-circle fs-1 text-success">
+																	<span class="path1"></span>
+																	<span class="path2"></span>
+																</i>
+															</div>
+															<!--end::Item-->
+															<!--begin::Item-->
+															<div class="d-flex align-items-center mb-5">
+																<span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Email and Calendaring</span>
+																<i class="ki-duotone ki-check-circle fs-1 text-success">
+																	<span class="path1"></span>
+																	<span class="path2"></span>
+																</i>
+															</div>
+															<!--end::Item-->
+															<!--begin::Item-->
+															<div class="d-flex align-items-center mb-5">
+																<span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Meeting and Voice Solutions</span>
+																<i class="ki-duotone ki-check-circle fs-1 text-success">
+																	<span class="path1"></span>
+																	<span class="path2"></span>
+																</i>
+															</div>
+															<!--end::Item-->
+															<!--begin::Item-->
+															<div class="d-flex align-items-center mb-5">
+																<span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Office Mobile Apps</span>
+																<i class="ki-duotone ki-check-circle fs-1 text-success">
+																	<span class="path1"></span>
+																	<span class="path2"></span>
+																</i>
+															</div>
+															<!--end::Item-->
+															<!--begin::Item-->
+															<div class="d-flex align-items-center mb-5">
+																<span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">More Apps and Services</span>
+																<i class="ki-duotone ki-check-circle fs-1 text-success">
+																	<span class="path1"></span>
+																	<span class="path2"></span>
+																</i>
+															</div>
+															<!--end::Item-->
+															<!--begin::Item-->
+															<div class="d-flex align-items-center mb-5">
+																<span class="fw-semibold fs-6 text-gray-600 flex-grow-1">Advanced Communication Tools</span>
+																<i class="ki-duotone ki-check-circle fs-1 text-success">
+																	<span class="path1"></span>
+																	<span class="path2"></span>
+																</i>
+															</div>
+															<!--end::Item-->
+															<!--begin::Item-->
+															<div class="d-flex align-items-center">
+																<span class="fw-semibold fs-6 text-gray-600 flex-grow-1">More Storage and Security</span>
+																<i class="ki-duotone ki-check-circle fs-1 text-success">
+																	<span class="path1"></span>
+																	<span class="path2"></span>
+																</i>
+															</div>
+															<!--end::Item-->
+														</div>
+														<!--end::Features-->
+														<!--begin::Select-->
+														<a href="#" class="btn btn-sm btn-primary">Select</a>
+														<!--end::Select-->
+													</div>
+													<!--end::Option-->
+												</div>
+											</div>
+											<!--end::Col-->
+											<!--begin::Col-->
+											<div class="col-xl-4">
+												<div class="d-flex h-100 align-items-center">
+													<!--begin::Option-->
+													<div class="w-100 d-flex flex-column flex-center rounded-3 bg-light bg-opacity-75 py-15 px-10">
+														<!--begin::Heading-->
+														<div class="mb-7 text-center">
+															<!--begin::Title-->
+															<h1 class="text-gray-900 mb-5 fw-bolder">Microsoft 365 Business Premium</h1>
+															<!--end::Title-->
+															<!--begin::Description-->
+															<div class="text-gray-600 fw-semibold mb-5">Optimal for Enterprise Scalability
+															<br />(Annual subscription–auto renews)</div>
+															<!--end::Description-->
+															<!--begin::Price-->
+															<div class="text-center">
+																<span class="mb-2 text-primary">$</span>
+																<span class="fs-3x fw-bold text-primary" data-kt-plan-price-month="22.00" data-kt-plan-price-annual="264.00">22.00</span>
+																<span class="fs-7 fw-semibold opacity-50">/ 
+																<span data-kt-element="period">user/month</span></span>
+															</div>
+															<!--end::Price-->
+														</div>
+														<!--end::Heading-->
+														<!--begin::Features-->
+														<div class="w-100 mb-10">
+															<!--begin::Item-->
+															<div class="d-flex align-items-center mb-5">
+																<span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Advanced Security</span>
+																<i class="ki-duotone ki-check-circle fs-1 text-success">
+																	<span class="path1"></span>
+																	<span class="path2"></span>
+																</i>
+															</div>
+															<!--end::Item-->
+															<!--begin::Item-->
+															<div class="d-flex align-items-center mb-5">
+																<span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Device Management</span>
+																<i class="ki-duotone ki-check-circle fs-1 text-success">
+																	<span class="path1"></span>
+																	<span class="path2"></span>
+																</i>
+															</div>
+															<!--end::Item-->
+															<!--begin::Item-->
+															<div class="d-flex align-items-center mb-5">
+																<span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Windows Virtual Desktop</span>
+																<i class="ki-duotone ki-check-circle fs-1 text-success">
+																	<span class="path1"></span>
+																	<span class="path2"></span>
+																</i>
+															</div>
+															<!--end::Item-->
+															<!--begin::Item-->
+															<div class="d-flex align-items-center mb-5">
+																<span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Cyberthreat Protection</span>
+																<i class="ki-duotone ki-check-circle fs-1 text-success">
+																	<span class="path1"></span>
+																	<span class="path2"></span>
+																</i>
+															</div>
+															<!--end::Item-->
+															<!--begin::Item-->
+															<div class="d-flex align-items-center mb-5">
+																<span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Access Management</span>
+																<i class="ki-duotone ki-check-circle fs-1 text-success">
+																	<span class="path1"></span>
+																	<span class="path2"></span>
+																</i>
+															</div>
+															<!--end::Item-->
+															<!--begin::Item-->
+															<div class="d-flex align-items-center mb-5">
+																<span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Data Loss Prevention</span>
+																<i class="ki-duotone ki-check-circle fs-1 text-success">
+																	<span class="path1"></span>
+																	<span class="path2"></span>
+																</i>
+															</div>
+															<!--end::Item-->
+															<!--begin::Item-->
+															<div class="d-flex align-items-center">
+																<span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Advanced Compliance</span>
+																<i class="ki-duotone ki-check-circle fs-1 text-success">
+																	<span class="path1"></span>
+																	<span class="path2"></span>
+																</i>
+															</div>
+															<!--end::Item-->
+														</div>
+														<!--end::Features-->
+														<!--begin::Select-->
+														<a href="#" class="btn btn-sm btn-primary">Select</a>
+														<!--end::Select-->
+													</div>
+													<!--end::Option-->
+												</div>
+											</div>
+											<!--end::Col-->
+										</div>
+										<!--end::Row-->
+									</div>
+									<!--end::Plans-->
+								</div>
+								<!--end::Card body-->
+							</div>
 							<!--end::Pricing card-->
 						</div>
 						<!--end::Post-->
@@ -3735,7 +4127,7 @@
 												<span class="mb-2">$</span>
 												<span class="fs-3x fw-bold" data-kt-plan-price-month="6.00" data-kt-plan-price-annual="72.00">6.00</span>
 												<span class="fs-7 opacity-50">/ 
-												<span data-kt-element="period">Mon</span></span>
+												<span data-kt-element="period">user/month</span></span>
 											</div>
 											<!--end::Price-->
 										</label>
@@ -3760,9 +4152,9 @@
 											<!--begin::Price-->
 											<div class="ms-5">
 												<span class="mb-2">$</span>
-												<span class="fs-3x fw-bold" data-kt-plan-price-month="15" data-kt-plan-price-annual="150">15</span>
+												<span class="fs-3x fw-bold" data-kt-plan-price-month="12.50" data-kt-plan-price-annual="150.00">12.50</span>
 												<span class="fs-7 opacity-50">/ 
-												<span data-kt-element="period">Mon</span></span>
+												<span data-kt-element="period">user/month</span></span>
 											</div>
 											<!--end::Price-->
 										</label>
@@ -3790,7 +4182,7 @@
 												<span class="mb-2">$</span>
 												<span class="fs-3x fw-bold" data-kt-plan-price-month="22.00" data-kt-plan-price-annual="264.00">22.00</span>
 												<span class="fs-7 opacity-50">/ 
-												<span data-kt-element="period">Mon</span></span>
+												<span data-kt-element="period">user/month</span></span>
 											</div>
 											<!--end::Price-->
 										</label>
@@ -3832,7 +4224,7 @@
 											<!--begin::Heading-->
 											<div class="pb-5">
 												<h2 class="fw-bold text-gray-900">What’s in Startup Plan?</h2>
-												<div class="text-muted fw-semibold">Optimal for 10+ team size and new startup</div>
+												<div class="text-muted fw-semibold">Optimal for Startup Teams</div>
 											</div>
 											<!--end::Heading-->
 											<!--begin::Body-->
@@ -6269,13 +6661,13 @@
 		<!--begin::Global Javascript Bundle(mandatory for all pages)-->
 		<script src="assets/plugins/global/plugins.bundle.js"></script>
 		<script src="assets/js/scripts.bundle.js"></script>
+		<script src="assets/js/custom/pages/pricing/general.js"></script>
 		<!--end::Global Javascript Bundle-->
 		<!--begin::Vendors Javascript(used for this page only)-->
 		<script src="assets/plugins/custom/datatables/datatables.bundle.js"></script>
 		<!--end::Vendors Javascript-->
 		<!--begin::Custom Javascript(used for this page only)-->
 		<script src="assets/js/widgets.bundle.js"></script>
-		<script src="assets/js/custom/pages/pricing/general.js"></script>
 		<script src="assets/js/custom/widgets.js"></script>
 		<script src="assets/js/custom/apps/chat/chat.js"></script>
 		<script src="assets/js/custom/utilities/modals/upgrade-plan.js"></script>
