@@ -4604,64 +4604,40 @@ License: For each use you must have a valid license purchased only from above li
 										<!--begin::Col-->
 										<div class="col-md-6 pe-lg-10">
 											<!--begin::Form-->
-												<form action="../send_mail.php" class="form mb-15" method="post" id="kt_contact_form">
-													<h1 class="fw-bold text-gray-900 mb-9">Send Us Email</h1>
-													<!--begin::Input group-->
-													<div class="row mb-5">
-														<!--begin::Col-->
-														<div class="col-md-6 fv-row">
-															<!--begin::Label-->
-															<label class="fs-5 fw-semibold mb-2">Name</label>
-															<!--end::Label-->
-															<!--begin::Input-->
-															<input type="text" class="form-control form-control-solid" placeholder="" name="name" />
-															<!--end::Input-->
-														</div>
-														<!--end::Col-->
-														<!--begin::Col-->
-														<div class="col-md-6 fv-row">
-															<!--begin::Label-->
-															<label class="fs-5 fw-semibold mb-2">Email</label>
-															<!--end::Label-->
-															<!--begin::Input-->
-															<input type="text" class="form-control form-control-solid" placeholder="" name="email" />
-															<!--end::Input-->
-														</div>
-														<!--end::Col-->
-													</div>
-													<!--end::Input group-->
-													<!--begin::Input group-->
-													<div class="d-flex flex-column mb-5 fv-row">
-														<!--begin::Label-->
-														<label class="fs-5 fw-semibold mb-2">Subject</label>
-														<!--end::Label-->
-														<!--begin::Input-->
-														<input class="form-control form-control-solid" placeholder="" name="subject" />
-														<!--end::Input-->
-													</div>
-													<!--end::Input group-->
-													<!--begin::Input group-->
-													<div class="d-flex flex-column mb-10 fv-row">
-														<label class="fs-6 fw-semibold mb-2">Message</label>
-														<textarea class="form-control form-control-solid" rows="6" name="message" placeholder=""></textarea>
-													</div>
-													<!--end::Input group-->
-													<!--begin::Submit-->
-													<button type="submit" class="btn btn-primary" id="kt_contact_submit_button">
-														<!--begin::Indicator label-->
-														<span class="indicator-label">Send Feedback</span>
-														<!--end::Indicator label-->
-														<!--begin::Indicator progress-->
-														<span class="indicator-progress">Please wait... 
-														<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-														<!--end::Indicator progress-->
-													</button>
-													<!--end::Submit-->
-												</form>
-												<!--end::Form-->
-
+										<form class="form mb-15" method="post" id="kt_contact_form">
+											<h1 class="fw-bold text-gray-900 mb-9">Send Us Email</h1>
+											<!--begin::Input group-->
+											<div class="row mb-5">
+												<!--begin::Col-->
+												<div class="col-md-6 fv-row">
+													<label class="fs-5 fw-semibold mb-2">Name</label>
+													<input type="text" class="form-control form-control-solid" placeholder="" name="name" />
+												</div>
+												<!--begin::Col-->
+												<div class="col-md-6 fv-row">
+													<label class="fs-5 fw-semibold mb-2">Email</label>
+													<input type="text" class="form-control form-control-solid" placeholder="" name="email" />
+												</div>
+											</div>
+											<!--begin::Input group-->
+											<div class="d-flex flex-column mb-5 fv-row">
+												<label class="fs-5 fw-semibold mb-2">Subject</label>
+												<input class="form-control form-control-solid" placeholder="" name="subject" />
+											</div>
+											<!--begin::Input group-->
+											<div class="d-flex flex-column mb-10 fv-row">
+												<label class="fs-6 fw-semibold mb-2">Message</label>
+												<textarea class="form-control form-control-solid" rows="6" name="message" placeholder=""></textarea>
+											</div>
+											<!--begin::Submit-->
+											<button type="submit" class="btn btn-primary" id="kt_contact_submit_button">
+												<span class="indicator-label">Send Feedback</span>
+												<span class="indicator-progress">Please wait... 
+												<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+											</button>
+										</form>
+										<!--end::Form-->
 										</div>
-										<!--end::Col-->
 										<!--begin::Col-->
 										<div class="col-md-6 ps-lg-10">
 											<!--begin::Map-->
@@ -8658,7 +8634,7 @@ License: For each use you must have a valid license purchased only from above li
 		<script src="assets/js/custom/utilities/modals/upgrade-plan.js"></script>
 		<script src="assets/js/custom/utilities/modals/create-app.js"></script>
 		<script src="assets/js/custom/utilities/modals/users-search.js"></script>
-		
+		<script src="path/to/form-handler.js"></script>		
 		<!--end::Custom Javascript-->
 		<!--end::Javascript-->
 	</body>
